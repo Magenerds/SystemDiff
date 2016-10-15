@@ -1,10 +1,10 @@
 <?php
 
-namespace Magenerds\SystemConfigDiff\Test\Unit\Service;
+namespace Magenerds\SystemDiff\Test\Unit\Service;
 
-use Magenerds\SystemConfigDiff\Differ\DifferInterface;
-use Magenerds\SystemConfigDiff\Differ\DifferPool;
-use Magenerds\SystemConfigDiff\Service\DiffDataService;
+use Magenerds\SystemDiff\Differ\DifferInterface;
+use Magenerds\SystemDiff\Differ\DifferPool;
+use Magenerds\SystemDiff\Service\DiffDataService;
 
 class DiffDataServiceUnitTest extends \PHPUnit_Framework_TestCase
 {

@@ -7,7 +7,7 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\DataReader;
+namespace Magenerds\SystemDiff\DataReader;
 
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\ObjectManager\TMap;

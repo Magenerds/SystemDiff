@@ -1,5 +1,5 @@
 {
-    "name": "magenerds/systemconfigdiff",
+    "name": "magenerds/systemdiff",
     "description": "N/A",
     "require": {
         "php": "~5.5.0|~5.6.0|~7.0.0",
@@ -15,7 +15,7 @@
             "registration.php"
         ],
         "psr-4": {
-            "Magenerds\\SystemConfigDiff\\": ""
+            "Magenerds\\SystemDiff\\": ""
         }
     }
 }

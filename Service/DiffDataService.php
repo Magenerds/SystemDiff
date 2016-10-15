@@ -7,11 +7,11 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Service;
+namespace Magenerds\SystemDiff\Service;
 
-use Magenerds\SystemConfigDiff\Api\Service\DiffDataServiceInterface;
-use Magenerds\SystemConfigDiff\Differ\DifferInterface;
-use Magenerds\SystemConfigDiff\Differ\DifferPool;
+use Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface;
+use Magenerds\SystemDiff\Differ\DifferInterface;
+use Magenerds\SystemDiff\Differ\DifferPool;
 
 class DiffDataService implements DiffDataServiceInterface
 {

@@ -7,7 +7,7 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Differ;
+namespace Magenerds\SystemDiff\Differ;
 
 interface DifferInterface
 {

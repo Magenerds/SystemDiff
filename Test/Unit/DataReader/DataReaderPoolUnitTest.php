@@ -7,10 +7,10 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Test\Unit\DataReader;
+namespace Magenerds\SystemDiff\Test\Unit\DataReader;
 
-use Magenerds\SystemConfigDiff\DataReader\DataReaderInterface;
-use Magenerds\SystemConfigDiff\DataReader\DataReaderPool;
+use Magenerds\SystemDiff\DataReader\DataReaderInterface;
+use Magenerds\SystemDiff\DataReader\DataReaderPool;
 use Magento\Framework\ObjectManager\TMap;
 use Magento\Framework\ObjectManager\TMapFactory;
 

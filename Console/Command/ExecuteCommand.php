@@ -7,11 +7,11 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Console\Command;
+namespace Magenerds\SystemDiff\Console\Command;
 
-use Magenerds\SystemConfigDiff\Api\Service\DiffDataServiceInterface;
-use Magenerds\SystemConfigDiff\Api\Service\FetchLocalDataServiceInterface;
-use Magenerds\SystemConfigDiff\Api\Service\FetchRemoteDataServiceInterface;
+use Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface;
+use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
+use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

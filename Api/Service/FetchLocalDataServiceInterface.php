@@ -7,7 +7,7 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Api\Service;
+namespace Magenerds\SystemDiff\Api\Service;
 
 interface FetchLocalDataServiceInterface
 {

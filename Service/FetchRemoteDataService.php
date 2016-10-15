@@ -7,10 +7,10 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Service;
+namespace Magenerds\SystemDiff\Service;
 
-use Magenerds\SystemConfigDiff\Api\Service\FetchRemoteDataServiceInterface;
-use Magenerds\SystemConfigDiff\Remote\ClientInterface;
+use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
+use Magenerds\SystemDiff\Remote\ClientInterface;
 
 class FetchRemoteDataService implements FetchRemoteDataServiceInterface
 {

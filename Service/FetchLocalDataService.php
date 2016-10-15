@@ -7,11 +7,11 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Service;
+namespace Magenerds\SystemDiff\Service;
 
-use Magenerds\SystemConfigDiff\Api\Service\FetchLocalDataServiceInterface;
-use Magenerds\SystemConfigDiff\DataReader\DataReaderPool;
-use Magenerds\SystemConfigDiff\DataReader\DataReaderInterface;
+use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
+use Magenerds\SystemDiff\DataReader\DataReaderPool;
+use Magenerds\SystemDiff\DataReader\DataReaderInterface;
 
 class FetchLocalDataService implements FetchLocalDataServiceInterface
 {

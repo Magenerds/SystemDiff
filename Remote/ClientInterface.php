@@ -7,7 +7,7 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Remote;
+namespace Magenerds\SystemDiff\Remote;
 
 interface ClientInterface
 {

@@ -7,9 +7,9 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Test\Unit\Differ;
+namespace Magenerds\SystemDiff\Test\Unit\Differ;
 
-use Magenerds\SystemConfigDiff\Differ\StoreConfigDiffer;
+use Magenerds\SystemDiff\Differ\StoreConfigDiffer;
 
 class StoreConfigDifferUnitTest extends \PHPUnit_Framework_TestCase
 {

@@ -7,10 +7,10 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Test\Unit\Differ;
+namespace Magenerds\SystemDiff\Test\Unit\Differ;
 
-use Magenerds\SystemConfigDiff\Differ\DifferInterface;
-use Magenerds\SystemConfigDiff\Differ\DifferPool;
+use Magenerds\SystemDiff\Differ\DifferInterface;
+use Magenerds\SystemDiff\Differ\DifferPool;
 use Magento\Framework\ObjectManager\TMap;
 use Magento\Framework\ObjectManager\TMapFactory;
 

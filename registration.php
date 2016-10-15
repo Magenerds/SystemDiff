@@ -9,6 +9,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Magenerds_SystemConfigDiff',
+    'Magenerds_SystemDiff',
     __DIR__
 );

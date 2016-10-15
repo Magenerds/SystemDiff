@@ -10,30 +10,31 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
-    <preference for="Magenerds\SystemConfigDiff\Api\Service\FetchRemoteDataServiceInterface"
-                type="Magenerds\SystemConfigDiff\Service\FetchRemoteDataService" />
+    <preference for="Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface"
+                type="Magenerds\SystemDiff\Service\FetchRemoteDataService" />
 
-    <preference for="Magenerds\SystemConfigDiff\Api\Service\FetchLocalDataServiceInterface"
-                type="Magenerds\SystemConfigDiff\Service\FetchLocalDataService" />
+    <preference for="Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface"
+                type="Magenerds\SystemDiff\Service\FetchLocalDataService" />
 
-    <preference for="Magenerds\SystemConfigDiff\Remote\ClientInterface"
-                type="\Magenerds\SystemConfigDiff\Remote\Client" />
+    <preference for="Magenerds\SystemDiff\Remote\ClientInterface"
+                type="\Magenerds\SystemDiff\Remote\Client" />
 
-    <preference for="Magenerds\SystemConfigDiff\Api\Service\DiffDataServiceInterface"
-                type="Magenerds\SystemConfigDiff\Service\DiffDataService" />
+    <preference for="Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface"
+                type="Magenerds\SystemDiff\Service\DiffDataService" />
 
-    <type name="Magenerds\SystemConfigDiff\Differ\DifferPool">
+    <type name="Magenerds\SystemDiff\Differ\DifferPool">
         <arguments>
             <argument name="differ" xsi:type="array">
-                <item name="storeConfig" xsi:type="string">Magenerds\SystemConfigDiff\Differ\StoreConfigDiffer</item>
+                <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\Differ\StoreConfigDiffer</item>
             </argument>
         </arguments>
     </type>
 
-    <type name="Magenerds\SystemConfigDiff\DataReader\DataReaderPool">
+    <type name="Magenerds\SystemDiff\DataReader\DataReaderPool">
         <arguments>
             <argument name="reader" xsi:type="array">
-                <item name="storeConfig" xsi:type="string">Magenerds\SystemConfigDiff\DataReader\StoreConfigDataReader</item>
+                <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\DataReader\StoreConfigDataReader</item>
+                <item name="cms" xsi:type="string">Magenerds\SystemDiff\DataReader\CmsDataReader</item>
             </argument>
         </arguments>
     </type>
@@ -41,7 +42,7 @@
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
-                <item name="configDiffExecuteCommand" xsi:type="object">Magenerds\SystemConfigDiff\Console\Command\ExecuteCommand</item>
+                <item name="configDiffExecuteCommand" xsi:type="object">Magenerds\SystemDiff\Console\Command\ExecuteCommand</item>
             </argument>
         </arguments>
     </type>

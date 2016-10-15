@@ -1,4 +1,4 @@
-# Magenerds_SystemConfigDiff
+# Magenerds_SystemDiff
 
 This extension is the successor of [TechDivision_SystemConfigDiff](https://github.com/techdivision/TechDivision_SystemConfigDiff) 
 for Magento 2. Data from one Magento instance can be compared with another isntance. This is useful if you have a test
@@ -17,7 +17,7 @@ Of course it is necessary to add a differ and a compatible data reader. The data
 requested data from the database. The differ's job is to receive the local and remote data in order to diff both data
 sets. In order to integrate your own data reader and differ, add the following to your `di.xml`:
  
-    <type name="Magenerds\SystemConfigDiff\Differ\DifferPool">
+    <type name="Magenerds\SystemDiff\Differ\DifferPool">
         <arguments>
             <argument name="differ" xsi:type="array">
                 <item name="yourDifferKey" xsi:type="string">Namespace\Module\Differ\YourOwnDiffer</item>
@@ -25,7 +25,7 @@ sets. In order to integrate your own data reader and differ, add the following t
         </arguments>
     </type>
     
-    <type name="Magenerds\SystemConfigDiff\DataReader\DataReaderPool">
+    <type name="Magenerds\SystemDiff\DataReader\DataReaderPool">
         <arguments>
             <argument name="reader" xsi:type="array">
                 <item name="yourDataReaderKey" xsi:type="string">Namespace\Module\DataReader\YourOwnReader</item>

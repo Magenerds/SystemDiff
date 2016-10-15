@@ -7,9 +7,9 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Test\Unit\DataReader;
+namespace Magenerds\SystemDiff\Test\Unit\DataReader;
 
-use Magenerds\SystemConfigDiff\DataReader\StoreConfigDataReader;
+use Magenerds\SystemDiff\DataReader\StoreConfigDataReader;
 use Magento\Store\Model\Config\Reader\DefaultReader;
 use Magento\Store\Model\Config\Reader\Store;
 use Magento\Store\Model\Config\Reader\Website;
