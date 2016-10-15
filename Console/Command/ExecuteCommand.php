@@ -2,6 +2,7 @@
 
 namespace Magenerds\SystemConfigDiff\Console\Command;
 
+use Magenerds\SystemConfigDiff\Api\Service\DiffDataServiceInterface;
 use Magenerds\SystemConfigDiff\Api\Service\FetchLocalDataServiceInterface;
 use Magenerds\SystemConfigDiff\Api\Service\FetchRemoteDataServiceInterface;
 use Symfony\Component\Console\Command\Command;
@@ -21,19 +22,27 @@ class ExecuteCommand extends Command
     private $fetchRemoteDataService;
 
     /**
+     * @var DiffDataServiceInterface
+     */
+    private $diffDataService;
+
+    /**
      * FetchDataCommand constructor.
      *
      * @param FetchLocalDataServiceInterface $fetchLocalDataService
      * @param FetchRemoteDataServiceInterface $fetchRemoteDataService
+     * @param DiffDataServiceInterface $diffDataService
      */
     public function __construct(
         FetchLocalDataServiceInterface $fetchLocalDataService,
-        FetchRemoteDataServiceInterface $fetchRemoteDataService
+        FetchRemoteDataServiceInterface $fetchRemoteDataService,
+        DiffDataServiceInterface $diffDataService
     ) {
         parent::__construct();
 
         $this->fetchLocalDataService = $fetchLocalDataService;
         $this->fetchRemoteDataService = $fetchRemoteDataService;
+        $this->diffDataService = $diffDataService;
     }
 
     /**
@@ -55,6 +64,8 @@ class ExecuteCommand extends Command
         $remoteData = $this->fetchRemoteDataService->fetch();
         $localData = $this->fetchLocalDataService->fetch();
 
-        $difference = $this->diffService->diffData($remoteData, $localData);
+        $difference = $this->diffDataService->diffData($remoteData, $localData);
+
+        $output->writeln($difference);
     }
 }

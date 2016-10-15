@@ -10,6 +10,9 @@
     <preference for="Magenerds\SystemConfigDiff\Remote\ClientInterface"
                 type="\Magenerds\SystemConfigDiff\Remote\Client" />
 
+    <preference for="Magenerds\SystemConfigDiff\Api\Service\DiffDataServiceInterface"
+                type="Magenerds\SystemConfigDiff\Service\DiffDataService" />
+
     <type name="Magenerds\SystemConfigDiff\Differ\DifferPool">
         <arguments>
             <argument name="differ" xsi:type="array">
