@@ -9,53 +9,82 @@
 
 namespace Magenerds\SystemConfigDiff\Test\Unit\Differ;
 
+use Magenerds\SystemConfigDiff\Differ\StoreConfigDiffer;
 
 class StoreConfigDifferUnitTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magenerds\SystemConfigDiff\Differ\StoreConfigDiffer
+     * @var StoreConfigDiffer
      */
-    protected $_differ;
+    private $differ;
 
+    /**
+     * Sets up the test.
+     */
     protected function setUp()
     {
-        $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
-        $this->_differ = $objectManager->getObject('Magenerds\SystemConfigDiff\Differ\StoreConfigDiffer');
+        $this->differ = new StoreConfigDiffer();
     }
 
     public function testDiff()
     {
-        $this->_differ->diff(
+        $diffData1 =
             [
                 'default' => [
-                    'design' => [
-                        'pagination' => [
-                            'list_allow_all' => '1',
-                            'pagination_frame' => '5'
-                        ],
-                        'head' => [
-                            'includes' => '<link  rel="stylesheet" type="text/css"  media="all" href="{{MEDIA_URL}}styles.css" />'
+                    'foo' => [
+                        'bar' => [
+                            'fooconfig' => 'foobar'
                         ]
                     ]
                 ],
-                'websites' => [],
+                'websites' => [
+                    'foo' => [
+                        'bar' => [
+                            'fooconfig' => 'foobar'
+                        ]
+                    ]
+                ],
                 'stores' => []
+            ];
+        $diffData2 =
+            [
+                'default' => [
+                    'foo' => [
+                        'bar' => [
+                            'fooconfig' => 'barfoo'
+                        ]
+                    ]
+                ],
+                'websites' => [
+                    'foo' => [
+                        'bar' => [
+                            'fooconfig' => 'foobar'
+                        ]
+                    ]
+                ],
+                'stores' => []
+            ];
+
+        $this->assertEquals(
+            [
+                'default' => [
+                    1 => [
+                        'foo/bar/fooconfig' => 'foobar'
+                    ],
+                    2 => [
+                        'foo/bar/fooconfig' => 'barfoo'
+                    ]
+                ],
+                'websites' => [
+                    1 => [],
+                    2 => []
+                ],
+                'stores' => [
+                    1 => [],
+                    2 => []
+                ]
             ],
-            [
-                'default' => [
-                    'design' => [
-                        'pagination' => [
-                            'list_allow_all' => '1',
-                            'pagination_frame' => '6'
-                        ],
-                        'head' => [
-                            'includes' => '<link  rel="stylesheet" type="text/css"  media="all" href="{{MEDIA_URL}}styles.css" />'
-                        ]
-                    ]
-                ],
-                'websites' => [],
-                'stores' => []
-            ]
+            $this->differ->diff($diffData1, $diffData2)
         );
     }
 }

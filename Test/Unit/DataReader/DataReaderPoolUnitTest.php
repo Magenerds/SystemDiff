@@ -7,17 +7,17 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Test\Unit\Differ;
+namespace Magenerds\SystemConfigDiff\Test\Unit\DataReader;
 
-use Magenerds\SystemConfigDiff\Differ\DifferInterface;
-use Magenerds\SystemConfigDiff\Differ\DifferPool;
+use Magenerds\SystemConfigDiff\DataReader\DataReaderInterface;
+use Magenerds\SystemConfigDiff\DataReader\DataReaderPool;
 use Magento\Framework\ObjectManager\TMap;
 use Magento\Framework\ObjectManager\TMapFactory;
 
-class DifferPoolUnitTest extends \PHPUnit_Framework_TestCase
+class DataReaderPoolUnitTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var DifferPool
+     * @var DataReaderPool
      */
     private $sut;
 
@@ -50,7 +50,7 @@ class DifferPoolUnitTest extends \PHPUnit_Framework_TestCase
             ->method('create')
             ->willReturn($this->mapMock);
 
-        $this->sut = new DifferPool($this->factoryMock, []);
+        $this->sut = new DataReaderPool($this->factoryMock, []);
     }
 
     /**
@@ -58,7 +58,7 @@ class DifferPoolUnitTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldReturnAnObjectByValidKey()
     {
-        $validDifferMock = $this->getMockBuilder(DifferInterface::class)->getMock();
+        $validDifferMock = $this->getMockBuilder(DataReaderInterface::class)->getMock();
         $this->mapMock->expects($this->any())->method('offsetGet')->willReturn($validDifferMock);
         $this->mapMock->expects($this->any())->method('offsetExists')->willReturn(true);
 

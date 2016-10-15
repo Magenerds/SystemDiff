@@ -9,22 +9,74 @@
 
 namespace Magenerds\SystemConfigDiff\Test\Unit\DataReader;
 
+use Magenerds\SystemConfigDiff\DataReader\StoreConfigDataReader;
+use Magento\Store\Model\Config\Reader\DefaultReader;
+use Magento\Store\Model\Config\Reader\Store;
+use Magento\Store\Model\Config\Reader\Website;
 
 class StoreConfigDataReaderUnitTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Magenerds\SystemConfigDiff\DataReader\StoreConfigDataReader
+     * @var DefaultReader|\PHPUnit_Framework_MockObject_MockObject
      */
-    protected $_reader;
+    private $defaultReader;
 
+    /**
+     * @var Website|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $websiteReader;
+
+    /**
+     * @var Store|\PHPUnit_Framework_MockObject_MockObject
+     */
+    private $storeReader;
+
+    /**
+     * @var StoreConfigDataReader
+     */
+    private $reader;
+
+    /**
+     * Sets up the test.
+     */
     protected function setUp()
     {
-        $objectManager = new \Magento\Framework\TestFramework\Unit\Helper\ObjectManager($this);
-        $this->_reader = $objectManager->getObject('Magenerds\SystemConfigDiff\DataReader\StoreConfigDataReader');
+        $this->defaultReader = $this->getMockBuilder(DefaultReader::class)->disableOriginalConstructor()->getMock();
+        $this->websiteReader = $this->getMockBuilder(Website::class)->disableOriginalConstructor()->getMock();
+        $this->storeReader = $this->getMockBuilder(Store::class)->disableOriginalConstructor()->getMock();
+
+        $this->reader = new StoreConfigDataReader(
+            $this->defaultReader,
+            $this->websiteReader,
+            $this->storeReader
+        );
     }
 
-    public function testDiff()
+    /**
+     * @test
+     */
+    public function itShouldReturnStoreConfigData()
     {
-        $this->_reader->read();
+        $this->defaultReader
+            ->expects($this->any())
+            ->method('read')
+            ->willReturn(['foo' => 'bar']);
+        $this->websiteReader
+            ->expects($this->any())
+            ->method('read')
+            ->willReturn(['foo' => 'bar']);
+        $this->storeReader
+            ->expects($this->any())
+            ->method('read')
+            ->willReturn(['foo' => 'bar']);
+
+        $this->assertEquals(
+            [
+                'default' => ['foo' => 'bar'],
+                'websites' => ['foo' => 'bar'],
+                'stores' => ['foo' => 'bar']
+            ],
+            $this->reader->read()
+        );
     }
 }
