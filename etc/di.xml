@@ -33,7 +33,7 @@
     <type name="Magenerds\SystemConfigDiff\DataReader\DataReaderPool">
         <arguments>
             <argument name="reader" xsi:type="array">
-                <item name="storeConfig" xsi:type="string">Magenerds\SystemConfigDiff\DataReader\StoreConfigDiffer</item>
+                <item name="storeConfig" xsi:type="string">Magenerds\SystemConfigDiff\DataReader\StoreConfigDataReader</item>
             </argument>
         </arguments>
     </type>
