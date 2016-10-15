@@ -7,10 +7,11 @@
 
 namespace Magenerds\SystemConfigDiff\Service;
 
+use Magenerds\SystemConfigDiff\Api\Service\DiffDataServiceInterface;
 use Magenerds\SystemConfigDiff\Differ\DifferInterface;
 use Magenerds\SystemConfigDiff\Differ\DifferPool;
 
-class DiffDataService
+class DiffDataService implements DiffDataServiceInterface
 {
     /**
      * @var DifferPool
@@ -29,12 +30,17 @@ class DiffDataService
     /**
      * @param array $localData
      * @param array $remoteData
+     * @return array
      */
     public function diffData(array $localData, array $remoteData)
     {
+        $differences = [];
+
         foreach ($this->differPool as $differCode => $differ) {
             /** @var DifferInterface $differ */
-            $differ->diff($localData, $remoteData);
+            $differences[$differCode] = $differ->diff($localData, $remoteData);
         }
+
+        return $differences;
     }
 }
