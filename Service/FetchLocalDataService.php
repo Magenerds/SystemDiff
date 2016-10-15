@@ -1,21 +1,46 @@
 <?php
 /**
- * @copyright Copyright (c) 1999-2016 netz98 new media GmbH (http://www.netz98.de)
+ * NOTICE OF LICENSE
  *
- * @see PROJECT_LICENSE.txt
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
  */
 
 namespace Magenerds\SystemConfigDiff\Service;
 
 use Magenerds\SystemConfigDiff\Api\Service\FetchLocalDataServiceInterface;
+use Magenerds\SystemConfigDiff\DataReader\DataReaderPool;
+use Magenerds\SystemConfigDiff\DataReader\DataReaderInterface;
 
 class FetchLocalDataService implements FetchLocalDataServiceInterface
 {
+    /**
+     * @var DataReaderPool
+     */
+    private $dataReaderPool;
+
+    /**
+     * FetchLocalDataService constructor.
+     * @param DataReaderPool $dataReaderPool
+     */
+    public function __construct(DataReaderPool $dataReaderPool)
+    {
+        $this->dataReaderPool = $dataReaderPool;
+    }
+
     /**
      * @return array
      */
     public function fetch()
     {
-        return [];
+        $data = [];
+
+        foreach ($this->dataReaderPool as $dataReaderCode => $dataReader) {
+            /** @var DataReaderInterface $dataReader */
+            $data[$dataReaderCode] = $dataReader->read();
+        }
+
+        return $data;
     }
 }

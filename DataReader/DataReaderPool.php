@@ -7,50 +7,50 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemConfigDiff\Differ;
+namespace Magenerds\SystemConfigDiff\DataReader;
 
 use Magento\Framework\Exception\NotFoundException;
 use Magento\Framework\ObjectManager\TMap;
 use Magento\Framework\ObjectManager\TMapFactory;
 use Traversable;
 
-class DifferPool implements \IteratorAggregate
+class DataReaderPool implements \IteratorAggregate
 {
     /**
-     * @var DifferInterface[] | TMap
+     * @var DataReaderInterface[] | TMap
      */
-    private $differ;
+    private $dataReader;
 
     /**
      * @param TMapFactory $tmapFactory
-     * @param array $differ
+     * @param array $dataReader
      */
     public function __construct(
         TMapFactory $tmapFactory,
-        array $differ = []
+        array $dataReader = []
     ) {
-        $this->differ = $tmapFactory->create(
+        $this->dataReader = $tmapFactory->create(
             [
-                'array' => $differ,
-                'type' => DifferInterface::class
+                'array' => $dataReader,
+                'type' => DataReaderInterface::class
             ]
         );
     }
 
     /**
-     * Retrieves differ by code
+     * Retrieves data reader by code
      *
-     * @param string $differCode
-     * @return DifferInterface
+     * @param string $dataReaderCode
+     * @return DataReaderInterface
      * @throws NotFoundException
      */
-    public function get($differCode)
+    public function get($dataReaderCode)
     {
-        if (!isset($this->differ[$differCode])) {
-            throw new NotFoundException(__('Differ %1 does not exist.', $differCode));
+        if (!isset($this->dataReader[$dataReaderCode])) {
+            throw new NotFoundException(__('Data reader %1 does not exist.', $dataReaderCode));
         }
 
-        return $this->differ[$differCode];
+        return $this->dataReader[$dataReaderCode];
     }
 
     /**
@@ -62,6 +62,6 @@ class DifferPool implements \IteratorAggregate
      */
     public function getIterator()
     {
-        return $this->differ;
+        return $this->dataReader;
     }
 }

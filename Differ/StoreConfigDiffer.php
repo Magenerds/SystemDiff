@@ -1,4 +1,11 @@
 <?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
 
 namespace Magenerds\SystemConfigDiff\Differ;
 
@@ -15,6 +22,10 @@ class StoreConfigDiffer extends AbstractDiffer
     {
         $localConfig = [];
         $remoteConfig = [];
+
+        $localData = $this->validateArray($localData);
+        $remoteData = $this->validateArray($remoteData);
+
         $localConfig['default'] = $this->flattenArray($localData['default'], '');
         $localConfig['websites'] = $this->flattenArray($localData['websites'], '');
         $localConfig['stores'] = $this->flattenArray($localData['stores'], '');
@@ -26,6 +37,29 @@ class StoreConfigDiffer extends AbstractDiffer
         $diff['default'] = $this->diffArrays($localConfig['default'], $remoteConfig['default']);
         $diff['websites'] = $this->diffArrays($localConfig['websites'], $remoteConfig['websites']);
         $diff['stores'] = $this->diffArrays($localConfig['stores'], $remoteConfig['stores']);
+
+        return $diff;
+    }
+
+    /**
+     * Validates the given array if all necessary array keys exist. Otherwise an empty array is added.
+     *
+     * @param array $array
+     * @return array
+     */
+    protected function validateArray(array $array)
+    {
+        if (!array_key_exists('default', $array)) {
+            $array['default'] = [];
+        }
+        if (!array_key_exists('websites', $array)) {
+            $array['websites'] = [];
+        }
+        if (!array_key_exists('stores', $array)) {
+            $array['stores'] = [];
+        }
+
+        return $array;
     }
 
     /**
