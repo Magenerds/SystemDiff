@@ -1,13 +1,15 @@
 <?php
 
-namespace Magenerds\SystemConfigDiff\Api;
+namespace Magenerds\SystemConfigDiff\Differ;
 
 interface DifferInterface
 {
     /**
-     * @param array $thisData
-     * @param array $otherData
+     * Diffs two data sets of two systems.
+     *
+     * @param array $localData
+     * @param array $remoteData
      * @return array
      */
-    public function diff($thisData, $otherData);
+    public function diff(array $localData, array $remoteData);
 }
