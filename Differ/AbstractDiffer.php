@@ -16,13 +16,13 @@ abstract class AbstractDiffer implements DifferInterface
     /**
      * Does the diff of two arrays and returns the diff as array.
      *
-     * @param $arr1
-     * @param $arr2
+     * @param array $arr1
+     * @param array $arr2
      * @return array
      */
-    protected function _diffArrays($arr1, $arr2)
+    protected function diffArrays(array $arr1, array $arr2)
     {
-        $result = array();
+        $result = [];
 
         $result[1] = array_diff_assoc($arr1, $arr2);
         $result[2] = array_diff_assoc($arr2, $arr1);
