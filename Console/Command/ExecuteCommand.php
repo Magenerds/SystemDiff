@@ -15,9 +15,21 @@ use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class ExecuteCommand extends Command
 {
+    /**
+     * Dry run argument
+     */
+    const DRY_RUN = 'dry-run';
+
+    /**
+     * Name argument
+     */
+    const NAME_ARGUMENT = 'name';
+
     /**
      * @var FetchLocalDataServiceInterface
      */
@@ -57,8 +69,18 @@ class ExecuteCommand extends Command
      */
     public function configure()
     {
-        $this->setName('config-diff:execute');
-        $this->setDescription('config-diff:execute');
+        $this->setName('system-diff:execute');
+        $this->setDescription('system-diff:execute');
+        $this->setDefinition([
+            new InputOption(
+                self::DRY_RUN,
+                '--dry-run',
+                InputOption::VALUE_NONE,
+                'Dry run'
+            )
+        ]);
+
+        parent::configure();
     }
 
     /**
@@ -73,6 +95,8 @@ class ExecuteCommand extends Command
 
         $difference = $this->diffDataService->diffData($remoteData, $localData);
 
-        $output->writeln(var_export($difference, true));
+        if ($input->getOption(self::DRY_RUN)) {
+            $output->writeln(var_export($difference, true));
+        }
     }
 }
