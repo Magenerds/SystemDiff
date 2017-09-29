@@ -23,15 +23,16 @@ class DataReaderPool implements \IteratorAggregate
 
     /**
      * @param TMapFactory $tmapFactory
-     * @param array $dataReader
+     * @param array $dataReaders
      */
     public function __construct(
         TMapFactory $tmapFactory,
-        array $dataReader = []
-    ) {
+        array $dataReaders = []
+    )
+    {
         $this->dataReader = $tmapFactory->create(
             [
-                'array' => $dataReader,
+                'array' => $dataReaders,
                 'type' => DataReaderInterface::class
             ]
         );
