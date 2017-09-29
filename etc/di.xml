@@ -24,8 +24,8 @@
 
     <type name="Magenerds\SystemDiff\Differ\DifferPool">
         <arguments>
-            <argument name="differ" xsi:type="array">
-                <item name="storeConfig" xsi:type="object">Magenerds\SystemDiff\Differ\StoreConfigDiffer</item>
+            <argument name="differs" xsi:type="array">
+                <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\Differ\StoreConfigDiffer</item>
             </argument>
         </arguments>
     </type>
@@ -33,7 +33,7 @@
     <type name="Magenerds\SystemDiff\DataReader\DataReaderPool">
         <arguments>
             <argument name="dataReaders" xsi:type="array">
-                <item name="storeConfig" xsi:type="object">Magenerds\SystemDiff\DataReader\StoreConfigDataReader</item>
+                <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\DataReader\StoreConfigDataReader</item>
             </argument>
         </arguments>
     </type>
