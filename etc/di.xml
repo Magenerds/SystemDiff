@@ -25,7 +25,7 @@
     <type name="Magenerds\SystemDiff\Differ\DifferPool">
         <arguments>
             <argument name="differ" xsi:type="array">
-                <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\Differ\StoreConfigDiffer</item>
+                <item name="storeConfig" xsi:type="object">Magenerds\SystemDiff\Differ\StoreConfigDiffer</item>
             </argument>
         </arguments>
     </type>
@@ -43,6 +43,41 @@
             <argument name="commands" xsi:type="array">
                 <item name="configDiffExecuteCommand" xsi:type="object">Magenerds\SystemDiff\Console\Command\ExecuteCommand</item>
             </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="appDumpSystemSource" type="Magento\Config\App\Config\Source\DumpConfigSourceAggregated">
+        <arguments>
+            <argument name="sources" xsi:type="array">
+                <item name="modular" xsi:type="array">
+                    <item name="source" xsi:type="object">Magento\Config\App\Config\Source\ModularConfigSource</item>
+                    <item name="sortOrder" xsi:type="string">10</item>
+                </item>
+                <item name="dynamic" xsi:type="array">
+                    <item name="source" xsi:type="object">Magento\Config\App\Config\Source\RuntimeConfigSource</item>
+                    <item name="sortOrder" xsi:type="string">100</item>
+                </item>
+                <item name="initial" xsi:type="array">
+                    <item name="source" xsi:type="object">systemConfigInitialDataProvider</item>
+                    <item name="sortOrder" xsi:type="string">1000</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="appDumpConfigSystemSource" type="appDumpSystemSource">
+        <arguments>
+            <argument name="rules" xsi:type="array">
+                <item name="default" xsi:type="const">Magento\Config\App\Config\Source\DumpConfigSourceAggregated::RULE_TYPE_INCLUDE</item>
+                <item name="environment" xsi:type="const">Magento\Config\App\Config\Source\DumpConfigSourceAggregated::RULE_TYPE_EXCLUDE</item>
+                <item name="sensitive" xsi:type="const">Magento\Config\App\Config\Source\DumpConfigSourceAggregated::RULE_TYPE_EXCLUDE</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magenerds\SystemDiff\DataReader\StoreConfigDataReader">
+        <arguments>
+            <argument name="configSource" xsi:type="object">appDumpConfigSystemSource</argument>
         </arguments>
     </type>
 </config>
