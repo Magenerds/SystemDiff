@@ -19,8 +19,7 @@ class Config
 {
     const XML_PATH_ENABLED = 'system_diff/general/enabled';
     const XML_PATH_REMOTE_SYSTEM_URL = 'system_diff/connection/remote_system_url';
-    const XML_PATH_API_USER = 'system_diff/connection/api_user';
-    const XML_PATH_API_PASS = 'system_diff/connection/api_pw';
+    const XML_PATH_ACCESS_TOKEN = 'system_diff/connection/access_token';
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
@@ -52,16 +51,8 @@ class Config
     /**
      * @return string|null
      */
-    public function getRemoteSystemApiUser()
+    public function getRemoteSystemAccessToken()
     {
-        return $this->config->getValue(self::XML_PATH_API_USER);
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getRemoteSystemApiPass()
-    {
-        return $this->config->getValue(self::XML_PATH_API_PASS);
+        return $this->config->getValue(self::XML_PATH_ACCESS_TOKEN);
     }
 }
