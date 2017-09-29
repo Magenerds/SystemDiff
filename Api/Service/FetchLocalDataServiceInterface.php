@@ -10,13 +10,15 @@
 namespace Magenerds\SystemDiff\Api\Service;
 
 /**
- * Returns the locally configured config data.
+ * Return locally configured config data.
  *
  * @api
  */
 interface FetchLocalDataServiceInterface
 {
     /**
+     * Returns locally configured config data.
+     *
      * @return mixed
      */
     public function fetch();
