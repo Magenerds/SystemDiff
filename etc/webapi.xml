@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- TODO: secure should be true!-->
+    <route url="/V1/systemConfig/all" method="GET" secure="false">
+        <service class="Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface" method="fetch"/>
+        <resources>
+            <!-- TODO: Allow only users with admin access -->
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>
