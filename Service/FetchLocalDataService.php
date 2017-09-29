@@ -30,7 +30,7 @@ class FetchLocalDataService implements FetchLocalDataServiceInterface
     }
 
     /**
-     * @return array
+     * @return mixed
      */
     public function fetch()
     {
