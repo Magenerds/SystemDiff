@@ -9,49 +9,32 @@
 
 namespace Magenerds\SystemDiff\DataReader;
 
+use Magento\Framework\App\Config\ConfigSourceInterface;
+
 class StoreConfigDataReader implements DataReaderInterface
 {
     /**
-     * @var \Magento\Store\Model\Config\Reader\DefaultReader
+     * @var ConfigSourceInterface
      */
-    private $defaultReader;
-    /**
-     * @var \Magento\Store\Model\Config\Reader\Website
-     */
-    private $websiteReader;
-    /**
-     * @var \Magento\Store\Model\Config\Reader\Store
-     */
-    private $storeReader;
+    private $configSource;
 
     /**
      * StoreConfigDataReader constructor.
-     * @param \Magento\Store\Model\Config\Reader\DefaultReader $defaultReader
-     * @param \Magento\Store\Model\Config\Reader\Website $websiteReader
-     * @param \Magento\Store\Model\Config\Reader\Store $storeReader
+     * @param ConfigSourceInterface $configSource
      */
-    public function __construct
-    (
-        \Magento\Store\Model\Config\Reader\DefaultReader $defaultReader,
-        \Magento\Store\Model\Config\Reader\Website $websiteReader,
-        \Magento\Store\Model\Config\Reader\Store $storeReader
+    public function __construct(
+        ConfigSourceInterface $configSource
     ){
-        $this->defaultReader = $defaultReader;
-        $this->websiteReader = $websiteReader;
-        $this->storeReader = $storeReader;
+        $this->configSource = $configSource;
     }
 
     /**
      * Reads the store configuration from database.
      *
-     * @return array
+     * @return []
      */
     public function read()
     {
-        return [
-            'default' => $this->defaultReader->read(),
-            'websites' => $this->websiteReader->read(),
-            'stores' => $this->storeReader->read()
-        ];
+        return $this->configSource->get();
     }
 }
