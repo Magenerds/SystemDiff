@@ -19,19 +19,19 @@ class DifferPool implements \IteratorAggregate
     /**
      * @var DifferInterface[] | TMap
      */
-    private $differ;
+    private $differs;
 
     /**
      * @param TMapFactory $tmapFactory
-     * @param array $differ
+     * @param array $differs
      */
     public function __construct(
         TMapFactory $tmapFactory,
-        array $differ = []
+        array $differs = []
     ) {
-        $this->differ = $tmapFactory->create(
+        $this->differs = $tmapFactory->create(
             [
-                'array' => $differ,
+                'array' => $differs,
                 'type' => DifferInterface::class
             ]
         );
@@ -46,11 +46,11 @@ class DifferPool implements \IteratorAggregate
      */
     public function get($differCode)
     {
-        if (!isset($this->differ[$differCode])) {
+        if (!isset($this->differs[$differCode])) {
             throw new NotFoundException(__('Differ %1 does not exist.', $differCode));
         }
 
-        return $this->differ[$differCode];
+        return $this->differs[$differCode];
     }
 
     /**
@@ -62,6 +62,6 @@ class DifferPool implements \IteratorAggregate
      */
     public function getIterator()
     {
-        return $this->differ;
+        return $this->differs;
     }
 }
