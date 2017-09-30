@@ -46,13 +46,9 @@
         </arguments>
     </type>
 
-    <virtualType name="appDumpSystemSource" type="Magento\Config\App\Config\Source\DumpConfigSourceAggregated">
+    <virtualType name="configShowSourceAggregated" type="Magento\Framework\App\Config\ConfigSourceAggregated">
         <arguments>
             <argument name="sources" xsi:type="array">
-                <item name="modular" xsi:type="array">
-                    <item name="source" xsi:type="object">Magento\Config\App\Config\Source\ModularConfigSource</item>
-                    <item name="sortOrder" xsi:type="string">10</item>
-                </item>
                 <item name="dynamic" xsi:type="array">
                     <item name="source" xsi:type="object">Magento\Config\App\Config\Source\RuntimeConfigSource</item>
                     <item name="sortOrder" xsi:type="string">100</item>
@@ -61,23 +57,17 @@
                     <item name="source" xsi:type="object">systemConfigInitialDataProvider</item>
                     <item name="sortOrder" xsi:type="string">1000</item>
                 </item>
-            </argument>
-        </arguments>
-    </virtualType>
-
-    <virtualType name="appDumpConfigSystemSource" type="appDumpSystemSource">
-        <arguments>
-            <argument name="rules" xsi:type="array">
-                <item name="default" xsi:type="const">Magento\Config\App\Config\Source\DumpConfigSourceAggregated::RULE_TYPE_INCLUDE</item>
-                <item name="environment" xsi:type="const">Magento\Config\App\Config\Source\DumpConfigSourceAggregated::RULE_TYPE_EXCLUDE</item>
-                <item name="sensitive" xsi:type="const">Magento\Config\App\Config\Source\DumpConfigSourceAggregated::RULE_TYPE_EXCLUDE</item>
+                <item name="envVariable" xsi:type="array">
+                    <item name="source" xsi:type="object">Magento\Config\App\Config\Source\EnvironmentConfigSource</item>
+                    <item name="sortOrder" xsi:type="string">2000</item>
+                </item>
             </argument>
         </arguments>
     </virtualType>
 
     <type name="Magenerds\SystemDiff\DataReader\StoreConfigDataReader">
         <arguments>
-            <argument name="configSource" xsi:type="object">appDumpConfigSystemSource</argument>
+            <argument name="configSource" xsi:type="object">configShowSourceAggregated</argument>
         </arguments>
     </type>
 </config>
