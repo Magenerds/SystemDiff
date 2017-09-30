@@ -16,8 +16,8 @@
     <preference for="Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\FetchLocalDataService" />
 
-    <preference for="Magenerds\SystemDiff\Remote\ClientInterface"
-                type="\Magenerds\SystemDiff\Remote\Client" />
+    <preference for="Magenerds\SystemDiff\Remote\ClientAdapterInterface"
+                type="\Magenerds\SystemDiff\Remote\ClientAdapter" />
 
     <preference for="Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\DiffDataService" />
@@ -40,6 +40,7 @@
         <arguments>
             <argument name="dataReaders" xsi:type="array">
                 <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\DataReader\StoreConfigDataReader</item>
+                <item name="mockData" xsi:type="string">Magenerds\SystemDiff\DataReader\MockDataReader</item>
             </argument>
         </arguments>
     </type>

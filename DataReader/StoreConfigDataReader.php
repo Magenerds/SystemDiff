@@ -31,7 +31,7 @@ class StoreConfigDataReader implements DataReaderInterface
     /**
      * Reads the store configuration from database.
      *
-     * @return []
+     * @return array
      */
     public function read()
     {

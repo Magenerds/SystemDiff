@@ -19,7 +19,7 @@ interface FetchLocalDataServiceInterface
     /**
      * Returns locally configured config data.
      *
-     * @return mixed
+     * @return \Magenerds\SystemDiff\Api\Data\ConfigDataInterface
      */
     public function fetch();
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <system>
+            <magenerds>
+                <system_diff>
+                    <api_types>
+                        <REST>\Magenerds\SystemDiff\Remote\RestClient</REST>
+                        <SOAP>\Magenerds\SystemDiff\Remote\SoapClient</SOAP>
+                    </api_types>
+                </system_diff>
+            </magenerds>
+        </system>
+    </default>
+</config>

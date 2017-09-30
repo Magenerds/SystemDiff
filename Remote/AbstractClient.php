@@ -9,12 +9,18 @@
 
 namespace Magenerds\SystemDiff\Remote;
 
-use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
+use Magenerds\SystemDiff\Helper\Config;
 
-interface ClientInterface
+class AbstractClient
 {
+    protected $helper;
     /**
-     * @return ConfigDataInterface
+     * Client constructor.
+     *
+     * @param Config $configHelper
      */
-    public function fetch();
+    public function __construct(Config $configHelper)
+    {
+        $this->helper = $configHelper;
+    }
 }

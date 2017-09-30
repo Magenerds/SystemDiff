@@ -28,11 +28,22 @@
             </group>
             <group id="connection" translate="label" sortOrder="20" showInDefault="1" showInStore="0" showInWebsite="0">
                 <label>Connection</label>
-                <field id="remote_system_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInStore="0" showInWebsite="0">
-                    <label>Remote System Url</label>
-                    <comment>Url of the system to compare with</comment>
+                <field id="api_type" translate="label" type="select" sortOrder="1" showInDefault="1" showInStore="0" showInWebsite="0">
+                    <label>API Type</label>
+                    <comment>Type of API to use: REST or SOAP.</comment>
+                    <source_model>Magenerds\SystemDiff\Model\Config\Source\ApiType</source_model>
                 </field>
-                <field id="access_token" translate="label" type="text" sortOrder="20" showInDefault="1" showInStore="0" showInWebsite="0">
+                <field id="remote_system_url" translate="label" type="text" sortOrder="1" showInDefault="1" showInStore="0" showInWebsite="0">
+                    <label>Remote System Url</label>
+                    <comment><![CDATA[
+                    Complete URL to the endpoint.<br>
+                    REST: http[s]://[remotehost]/index.php/rest/all/V1/systemConfig/all<br>
+                    SOAP: http[s]://[remotehost]/soap?wsdl&services=magenerdsSystemDiffServiceFetchLocalDataServiceV1<br>
+                    <br>
+                    See <a href="http://devdocs.magento.com/guides/v2.2/get-started/soap/soap-web-api-calls.html">http://devdocs.magento.com/guides/v2.2/get-started/soap/soap-web-api-calls.html</a>
+                    ]]></comment>
+                </field>
+                <field id="access_token" translate="label" type="text" sortOrder="2" showInDefault="1" showInStore="0" showInWebsite="0">
                     <label>Access Token</label>
                     <comment>Access Token of the integration user on the remote system. This user has to have the checkmark on Stores > Settings > Configuration > SystemDiff Section</comment>
                 </field>
