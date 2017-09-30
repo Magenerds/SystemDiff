@@ -7,29 +7,32 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemDiff\Model;
+namespace Magenerds\SystemDiff\Helper;
+use Magenerds\SystemDiff\Remote\ClientInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
  * Class to read module-specific configuration
  *
  * Class Config
- * @package Magenerds\SystemDiff\Model
+ * @package Magenerds\SystemDiff\Helper
  */
 class Config
 {
     const XML_PATH_ENABLED = 'system_diff/general/enabled';
     const XML_PATH_REMOTE_SYSTEM_URL = 'system_diff/connection/remote_system_url';
     const XML_PATH_ACCESS_TOKEN = 'system_diff/connection/access_token';
+    const XML_PATH_API_TYPE = 'system_diff/connection/api_type';
 
     /**
-     * @var \Magento\Framework\App\Config\ScopeConfigInterface
+     * @var ScopeConfigInterface
      */
-    protected $config;
+    protected $scopeConfig;
 
     public function __construct(
-        \Magento\Framework\App\Config\ScopeConfigInterface $config
+        ScopeConfigInterface $scopeConfig
     ) {
-        $this->config = $config;
+        $this->scopeConfig = $scopeConfig;
     }
 
     /**
@@ -37,7 +40,7 @@ class Config
      */
     public function isEnabled()
     {
-        return $this->config->isSetFlag(self::XML_PATH_ENABLED);
+        return $this->scopeConfig->isSetFlag(self::XML_PATH_ENABLED);
     }
 
     /**
@@ -45,7 +48,17 @@ class Config
      */
     public function getRemoteSystemUrl()
     {
-        return $this->config->getValue(self::XML_PATH_REMOTE_SYSTEM_URL);
+        return $this->scopeConfig->getValue(self::XML_PATH_REMOTE_SYSTEM_URL);
+    }
+
+    /**
+     * Returns the class/type name to use as Client.
+     *
+     * @return string|null
+     */
+    public function getApiType()
+    {
+        return $this->scopeConfig->getValue(self::XML_PATH_API_TYPE);
     }
 
     /**
@@ -53,6 +66,6 @@ class Config
      */
     public function getRemoteSystemAccessToken()
     {
-        return $this->config->getValue(self::XML_PATH_ACCESS_TOKEN);
+        return $this->scopeConfig->getValue(self::XML_PATH_ACCESS_TOKEN);
     }
 }
