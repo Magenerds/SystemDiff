@@ -21,7 +21,7 @@ class StoreConfigDiffer extends AbstractDiffer
      *
      * @param array $localData
      * @param array $remoteData
-     * @return array
+     * @return []
      */
     public function diff(array $localData, array $remoteData)
     {
@@ -81,7 +81,7 @@ class StoreConfigDiffer extends AbstractDiffer
      *
      * @param $arr
      * @param $path
-     * @return array
+     * @return []
      */
     protected function flattenArray($arr, $path)
     {

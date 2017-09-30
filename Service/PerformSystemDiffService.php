@@ -21,28 +21,31 @@ use Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface;
 class PerformSystemDiffService implements PerformSystemDiffServiceInterface
 {
     /**
-     * @var \Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface
+     * @var FetchLocalDataServiceInterface
      */
     protected $fetchLocalDataService;
+
     /**
-     * @var \Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface
+     * @var FetchRemoteDataServiceInterface
      */
     protected $fetchRemoteDataService;
+
     /**
-     * @var \Magenerds\SystemDiff\Service\DiffDataService
+     * @var DiffDataService
      */
     protected $diffDataService;
+
     /**
-     * @var \Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface
+     * @var SaveDiffToTableServiceInterface
      */
     private $saveDiffToTableService;
 
     /**
      * PerformSystemDiffService constructor.
-     * @param \Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface $fetchLocalDataService
-     * @param \Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface $fetchRemoteDataService
-     * @param \Magenerds\SystemDiff\Service\DiffDataService $diffDataService
-     * @param \Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface $saveDiffToTableService
+     * @param FetchLocalDataServiceInterface $fetchLocalDataService
+     * @param FetchRemoteDataServiceInterface $fetchRemoteDataService
+     * @param DiffDataService $diffDataService
+     * @param SaveDiffToTableServiceInterface $saveDiffToTableService
      */
     public function __construct(
         FetchLocalDataServiceInterface $fetchLocalDataService,
