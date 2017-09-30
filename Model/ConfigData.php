@@ -11,17 +11,20 @@ class ConfigData implements ConfigDataInterface
 
     /**
      * ConfigData constructor.
+     *
+     * @param array $data
      */
     public function __construct(array $data)
     {
-        $this->data = new \ArrayObject($data);
+        $this->data = $data;
     }
 
     /**
+     * @inheritdoc
      * @return mixed|array
      */
     public function getData()
     {
-        return (array)$this->data;
+        return [$this->data];
     }
 }

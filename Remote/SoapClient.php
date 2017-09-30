@@ -28,17 +28,11 @@ class SoapClient extends AbstractClient implements ClientInterface
             ]
         );
         $response = $httpClient->magenerdsSystemDiffServiceFetchLocalDataServiceV1Fetch();
-        $data = [];
 
-        if (isset($response->result->data->string)
-            && is_array($response->result->data->string)
-        ) {
-            foreach ($response->result->data->string as $poolData) {
-                $data[] = json_decode($poolData);
-            }
+        if (isset($response->result->data->string)) {
+            return new ConfigData($this->buildDataFromJson($response->result->data->string));
         }
 
-        return new ConfigData($data);
+        throw new \Exception("SOAP response could not be read");
     }
-
 }

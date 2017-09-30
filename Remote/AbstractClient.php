@@ -23,4 +23,18 @@ class AbstractClient
     {
         $this->helper = $configHelper;
     }
+
+    /**
+     * @param $json
+     * @return array
+     */
+    protected function buildDataFromJson($json)
+    {
+        $responseData = json_decode($json, true);
+        if (is_array($responseData)) {
+            return $responseData;
+        }
+
+        return [];
+    }
 }
