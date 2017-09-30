@@ -12,7 +12,7 @@ namespace Magenerds\SystemDiff\Api\Service;
 interface FetchRemoteDataServiceInterface
 {
     /**
-     * @return array
+     * @return \Magenerds\SystemDiff\Api\Data\ConfigDataInterface
      */
     public function fetch();
 }

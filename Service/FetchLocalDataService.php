@@ -12,6 +12,7 @@ namespace Magenerds\SystemDiff\Service;
 use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
 use Magenerds\SystemDiff\DataReader\DataReaderPool;
 use Magenerds\SystemDiff\DataReader\DataReaderInterface;
+use Magenerds\SystemDiff\Model\ConfigData;
 
 class FetchLocalDataService implements FetchLocalDataServiceInterface
 {
@@ -30,7 +31,7 @@ class FetchLocalDataService implements FetchLocalDataServiceInterface
     }
 
     /**
-     * @return mixed
+     * @return \Magenerds\SystemDiff\Api\Data\ConfigDataInterface
      */
     public function fetch()
     {
@@ -41,6 +42,6 @@ class FetchLocalDataService implements FetchLocalDataServiceInterface
             $data[$dataReaderCode] = $dataReader->read();
         }
 
-        return $data;
+        return new ConfigData($data);
     }
 }
