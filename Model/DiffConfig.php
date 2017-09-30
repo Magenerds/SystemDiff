@@ -9,11 +9,15 @@
 
 namespace Magenerds\SystemDiff\Model;
 
+use Magento\Framework\Model\AbstractModel;
+use Magenerds\SystemDiff\Model\ResourceModel\DiffConfig as DiffConfigResource;
+
 /**
  * Class DiffConfig
+ * @method getDiffValueRemote()
  * @package Magenerds\SystemDiff\Model
  */
-class DiffConfig extends \Magento\Framework\Model\AbstractModel
+class DiffConfig extends AbstractModel
 {
     /**
      * Initialize resource
@@ -22,7 +26,6 @@ class DiffConfig extends \Magento\Framework\Model\AbstractModel
      */
     protected function _construct()
     {
-        $this->_init(\Magenerds\SystemDiff\Model\ResourceModel\DiffConfig::class);
+        $this->_init(DiffConfigResource::class);
     }
-
 }

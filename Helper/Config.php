@@ -26,6 +26,7 @@ class Config
     const XML_PATH_REMOTE_SYSTEM_URL = 'system_diff/connection/remote_system_url';
     const XML_PATH_ACCESS_TOKEN = 'system_diff/connection/access_token';
     const XML_PATH_API_TYPE = 'system_diff/connection/api_type';
+    const XML_PATH_DISPLAY_STORE_CONFIG = 'system_diff/display/store_config';
 
     /**
      * @var ScopeConfigInterface
@@ -74,5 +75,13 @@ class Config
     public function getRemoteSystemAccessToken()
     {
         return $this->scopeConfig->getValue(self::XML_PATH_ACCESS_TOKEN);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisplayStoreConfig()
+    {
+        return $this->scopeConfig->isSetFlag(self::XML_PATH_DISPLAY_STORE_CONFIG);
     }
 }
