@@ -12,5 +12,10 @@
                 </system_diff>
             </magenerds>
         </system>
+        <system_diff>
+            <connection>
+                <api_type>\Magenerds\SystemDiff\Remote\SoapClient</api_type>
+            </connection>
+        </system_diff>
     </default>
 </config>
