@@ -22,7 +22,7 @@
                 <label>General</label>
                 <field id="enabled" type="select" translate="label" sortOrder="10" showInDefault="1" showInStore="0" showInWebsite="0">
                     <label>Enabled</label>
-                    <comment>Flag for showing the differences in the backend</comment>
+                    <comment>Flag for enabling the functionality</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
@@ -35,6 +35,14 @@
                 <field id="access_token" translate="label" type="text" sortOrder="20" showInDefault="1" showInStore="0" showInWebsite="0">
                     <label>Access Token</label>
                     <comment>Access Token of the integration user on the remote system. This user has to have the checkmark on Stores > Settings > Configuration > SystemDiff Section</comment>
+                </field>
+            </group>
+            <group id="display" translate="label" sortOrder="30" showInDefault="1" showInStore="0" showInWebsite="0">
+                <label>Display</label>
+                <field id="store_config" type="select" translate="label" sortOrder="10" showInDefault="1" showInStore="0" showInWebsite="0">
+                    <label>Store configuration diff</label>
+                    <comment>Flag for showing the store configuration differences</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
         </section>
