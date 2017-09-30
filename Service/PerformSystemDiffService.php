@@ -60,7 +60,7 @@ class PerformSystemDiffService implements PerformSystemDiffServiceInterface
     }
 
     /**
-     * @return bool
+     * Initiates the diff
      */
     public function performDiff()
     {
