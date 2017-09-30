@@ -14,7 +14,7 @@ use Magenerds\SystemDiff\DataReader\DataReaderPool;
 use Magento\Framework\ObjectManager\TMap;
 use Magento\Framework\ObjectManager\TMapFactory;
 
-class DataReaderPoolUnitTest extends \PHPUnit_Framework_TestCase
+class DataReaderPoolUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DataReaderPool

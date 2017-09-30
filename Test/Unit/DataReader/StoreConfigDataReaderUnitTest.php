@@ -10,26 +10,18 @@
 namespace Magenerds\SystemDiff\Test\Unit\DataReader;
 
 use Magenerds\SystemDiff\DataReader\StoreConfigDataReader;
-use Magento\Store\Model\Config\Reader\DefaultReader;
-use Magento\Store\Model\Config\Reader\Store;
-use Magento\Store\Model\Config\Reader\Website;
+use Magento\Framework\App\Config\ConfigSourceInterface;
 
-class StoreConfigDataReaderUnitTest extends \PHPUnit_Framework_TestCase
+/**
+ * Class StoreConfigDataReaderUnitTest
+ * @package Magenerds\SystemDiff\Test\Unit\DataReader
+ */
+class StoreConfigDataReaderUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @var DefaultReader|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Magento\Framework\App\Config\ConfigSourceInterface|\PHPUnit_Framework_MockObject_MockObject
      */
-    private $defaultReader;
-
-    /**
-     * @var Website|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $websiteReader;
-
-    /**
-     * @var Store|\PHPUnit_Framework_MockObject_MockObject
-     */
-    private $storeReader;
+    protected $configSource;
 
     /**
      * @var StoreConfigDataReader
@@ -41,14 +33,11 @@ class StoreConfigDataReaderUnitTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->defaultReader = $this->getMockBuilder(DefaultReader::class)->disableOriginalConstructor()->getMock();
-        $this->websiteReader = $this->getMockBuilder(Website::class)->disableOriginalConstructor()->getMock();
-        $this->storeReader = $this->getMockBuilder(Store::class)->disableOriginalConstructor()->getMock();
-
+        $this->configSource = $this->getMockBuilder(ConfigSourceInterface::class)
+            ->setMethods(['get'])
+            ->getMockForAbstractClass();
         $this->reader = new StoreConfigDataReader(
-            $this->defaultReader,
-            $this->websiteReader,
-            $this->storeReader
+            $this->configSource
         );
     }
 
@@ -57,25 +46,19 @@ class StoreConfigDataReaderUnitTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldReturnStoreConfigData()
     {
-        $this->defaultReader
-            ->expects($this->any())
-            ->method('read')
-            ->willReturn(['foo' => 'bar']);
-        $this->websiteReader
-            ->expects($this->any())
-            ->method('read')
-            ->willReturn(['foo' => 'bar']);
-        $this->storeReader
-            ->expects($this->any())
-            ->method('read')
-            ->willReturn(['foo' => 'bar']);
+        $configArr = [
+            'default' => ['foo' => 'bar'],
+            'websites' => ['foo' => 'bar'],
+            'stores' => ['foo' => 'bar']
+        ];
+
+        $this->configSource->expects($this->once())
+            ->method('get')
+            ->willReturn($configArr);
+
 
         $this->assertEquals(
-            [
-                'default' => ['foo' => 'bar'],
-                'websites' => ['foo' => 'bar'],
-                'stores' => ['foo' => 'bar']
-            ],
+            $configArr,
             $this->reader->read()
         );
     }
