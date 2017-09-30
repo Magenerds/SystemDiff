@@ -27,8 +27,10 @@ class StoreConfigDataWriter implements DataWriterInterface
 
     const DEFAULT_SCOPE_ID = 0;
     const ARRAY_INDEX_LOCAL = 1;
-    const ARRAY_INDEX_REMOTE = 2;
+    const ARRAY_INDEX_REMOTE = self::EXPECTED_SPLITTED_PATH_LENGTH;
     const ARRAY_STORE_CONFIG_KEY = 'storeConfig';
+    const SCOPE_KEYS = ['default', 'websites', 'stores'];
+    const EXPECTED_SPLITTED_PATH_LENGTH = 2;
 
     /**
      * @var DiffConfigResource
@@ -65,9 +67,23 @@ class StoreConfigDataWriter implements DataWriterInterface
      */
     public function write(array $diffData)
     {
+        if (empty($diffData) || !array_key_exists(self::ARRAY_STORE_CONFIG_KEY, $diffData)) {
+            return;
+        }
+
         $diffData = $diffData[self::ARRAY_STORE_CONFIG_KEY];
 
         foreach ($diffData as $scope => $data) {
+            if (!in_array($scope, self::SCOPE_KEYS)) {
+                continue;
+            }
+
+            if (!array_key_exists(self::ARRAY_INDEX_LOCAL, $data)
+                || !array_key_exists(self::ARRAY_INDEX_REMOTE, $data)
+            ) {
+                continue;
+            }
+
             $localValues = $data[self::ARRAY_INDEX_LOCAL];
             $remoteValues = $data[self::ARRAY_INDEX_REMOTE];
 
@@ -101,7 +117,16 @@ class StoreConfigDataWriter implements DataWriterInterface
             $scopeId = self::DEFAULT_SCOPE_ID;
 
             if ($scope === self::SCOPE_VALUE_WEBSITES || $scope === self::SCOPE_VALUE_STORES) {
-                $splittedPath = explode('/', $path, 2);
+                if (empty($path)) {
+                    continue;
+                }
+
+                $splittedPath = explode('/', $path, self::EXPECTED_SPLITTED_PATH_LENGTH);
+
+                if (count($splittedPath) !== self::EXPECTED_SPLITTED_PATH_LENGTH) {
+                    continue;
+                }
+
                 $code = $splittedPath[0];
                 $path = $splittedPath[1];
 
