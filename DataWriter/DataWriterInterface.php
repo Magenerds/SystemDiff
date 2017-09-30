@@ -7,17 +7,13 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemDiff\Api\Service;
+namespace Magenerds\SystemDiff\DataWriter;
 
-/**
- * Interface SaveDiffToTableServiceInterface
- * @package Magenerds\SystemDiff\Api\Service
- */
-interface SaveDiffToTableServiceInterface
+interface DataWriterInterface
 {
     /**
      * @param array $diffData
      * @return void
      */
-    public function saveData(array $diffData);
+    public function write(array $diffData);
 }
