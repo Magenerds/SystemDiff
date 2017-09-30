@@ -8,7 +8,7 @@
  */
 
 namespace Magenerds\SystemDiff\Helper;
-use Magenerds\SystemDiff\Remote\ClientInterface;
+
 use Magento\Framework\App\Config\ScopeConfigInterface;
 
 /**
@@ -19,6 +19,9 @@ use Magento\Framework\App\Config\ScopeConfigInterface;
  */
 class Config
 {
+    /**
+     * Holds the configuration paths for this module
+     */
     const XML_PATH_ENABLED = 'system_diff/general/enabled';
     const XML_PATH_REMOTE_SYSTEM_URL = 'system_diff/connection/remote_system_url';
     const XML_PATH_ACCESS_TOKEN = 'system_diff/connection/access_token';
@@ -29,6 +32,10 @@ class Config
      */
     protected $scopeConfig;
 
+    /**
+     * Config constructor.
+     * @param ScopeConfigInterface $scopeConfig
+     */
     public function __construct(
         ScopeConfigInterface $scopeConfig
     ) {
