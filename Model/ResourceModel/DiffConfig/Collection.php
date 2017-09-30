@@ -26,5 +26,4 @@ class Collection extends \Magento\Framework\Model\ResourceModel\Db\Collection\Ab
             \Magenerds\SystemDiff\Model\ResourceModel\DiffConfig::class
         );
     }
-
 }

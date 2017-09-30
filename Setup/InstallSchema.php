@@ -48,7 +48,12 @@ class InstallSchema implements InstallSchemaInterface
             8,
             ['nullable' => false, 'primary' => false]
         )->addColumn(
-            'diff_value',
+            'diff_value_local',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            null,
+            ['nullable' => false, 'primary' => false]
+        )->addColumn(
+            'diff_value_remote',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
             ['nullable' => false, 'primary' => false]

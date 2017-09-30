@@ -17,7 +17,6 @@ use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
  */
 class DiffConfig extends AbstractDb
 {
-
     /**
      * Resource initialization
      *

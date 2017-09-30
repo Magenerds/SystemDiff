@@ -1,4 +1,13 @@
 <?xml version="1.0"?>
+<!--
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
+-->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
@@ -9,27 +18,23 @@
             <label>SystemDiff</label>
             <tab>magenerds</tab>
             <resource>Magenerds_SystemDiff::config_system_diff</resource>
-            <group id="general" translate="label" showInDefault="1" showInStore="0" showInWebsite="0">
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInStore="0" showInWebsite="0">
                 <label>General</label>
-                <field id="enabled" type="select" translate="label" showInDefault="1" showInStore="0" showInWebsite="0">
+                <field id="enabled" type="select" translate="label" sortOrder="10" showInDefault="1" showInStore="0" showInWebsite="0">
                     <label>Enabled</label>
                     <comment>Flag for showing the differences in the backend</comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
-            <group id="connection" translate="label" showInDefault="1" showInStore="0" showInWebsite="0">
+            <group id="connection" translate="label" sortOrder="20" showInDefault="1" showInStore="0" showInWebsite="0">
                 <label>Connection</label>
-                <field id="remote_system_url" translate="label" type="text" sortOrder="1" showInDefault="1" showInStore="0" showInWebsite="0">
+                <field id="remote_system_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInStore="0" showInWebsite="0">
                     <label>Remote System Url</label>
                     <comment>Url of the system to compare with</comment>
                 </field>
-                <field id="api_user" translate="label" type="text" sortOrder="2" showInDefault="1" showInStore="0" showInWebsite="0">
-                    <label>API Username</label>
-                    <comment>Username of the API of the remote system</comment>
-                </field>
-                <field id="api_pw" translate="label" type="password" sortOrder="3" showInDefault="1" showInStore="0" showInWebsite="0">
-                    <label>API Password</label>
-                    <comment>Password of the API of the remote system</comment>
+                <field id="access_token" translate="label" type="text" sortOrder="20" showInDefault="1" showInStore="0" showInWebsite="0">
+                    <label>Access Token</label>
+                    <comment>Access Token of the integration user on the remote system. This user has to have the checkmark on Stores > Settings > Configuration > SystemDiff Section</comment>
                 </field>
             </group>
         </section>

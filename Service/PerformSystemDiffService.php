@@ -13,6 +13,7 @@ use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
 use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
 use Magenerds\SystemDiff\Api\Service\PerformSystemDiffServiceInterface;
 use Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface;
+use Magenerds\SystemDiff\Helper\Config;
 
 /**
  * Class PerformSystemDiffService
@@ -21,51 +22,64 @@ use Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface;
 class PerformSystemDiffService implements PerformSystemDiffServiceInterface
 {
     /**
-     * @var \Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface
+     * @var FetchLocalDataServiceInterface
      */
     protected $fetchLocalDataService;
+
     /**
-     * @var \Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface
+     * @var FetchRemoteDataServiceInterface
      */
     protected $fetchRemoteDataService;
+
     /**
-     * @var \Magenerds\SystemDiff\Service\DiffDataService
+     * @var DiffDataService
      */
     protected $diffDataService;
+
     /**
-     * @var \Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface
+     * @var SaveDiffToTableServiceInterface
      */
     private $saveDiffToTableService;
 
     /**
+     * @var Config
+     */
+    private $config;
+
+    /**
      * PerformSystemDiffService constructor.
-     * @param \Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface $fetchLocalDataService
-     * @param \Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface $fetchRemoteDataService
-     * @param \Magenerds\SystemDiff\Service\DiffDataService $diffDataService
-     * @param \Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface $saveDiffToTableService
+     * @param FetchLocalDataServiceInterface $fetchLocalDataService
+     * @param FetchRemoteDataServiceInterface $fetchRemoteDataService
+     * @param DiffDataService $diffDataService
+     * @param SaveDiffToTableServiceInterface $saveDiffToTableService
+     * @param Config $config
      */
     public function __construct(
         FetchLocalDataServiceInterface $fetchLocalDataService,
         FetchRemoteDataServiceInterface $fetchRemoteDataService,
         DiffDataService $diffDataService,
-        SaveDiffToTableServiceInterface $saveDiffToTableService
+        SaveDiffToTableServiceInterface $saveDiffToTableService,
+        Config $config
     ) {
         $this->fetchLocalDataService = $fetchLocalDataService;
         $this->fetchRemoteDataService = $fetchRemoteDataService;
         $this->diffDataService = $diffDataService;
         $this->saveDiffToTableService = $saveDiffToTableService;
+        $this->config = $config;
     }
 
     /**
-     * @return bool
+     * Initiates the diff
      */
     public function performDiff()
     {
-        $localData = $this->fetchLocalDataService->fetch();
-        $remoteData = $this->fetchRemoteDataService->fetch();
+        if ($this->config->isEnabled()) {
+            $localData = $this->fetchLocalDataService->fetch();
+            $remoteData = $this->fetchRemoteDataService->fetch();
 
-        $diffData = $this->diffDataService->diffData($localData, $remoteData);
+            $diffData = $this->diffDataService->diffData($localData, $remoteData);
 
-        $this->saveDiffToTableService->saveData($diffData);
+            $this->saveDiffToTableService->saveData($diffData);
+        }
     }
 }
