@@ -19,6 +19,17 @@ class StoreConfigDataWriter implements DataWriterInterface
     const LOCAL_VALUE_FIELD_NAME = 'diff_value_local';
     const REMOTE_VALUE_FIELD_NAME = 'diff_value_remote';
 
+    const SCOPE_FIELD_NAME = 'scope';
+    const SCOPE_ID_FIELD_NAME = 'scope_id';
+    const PATH_FIELD_NAME = 'path';
+    const SCOPE_VALUE_WEBSITES = 'websites';
+    const SCOPE_VALUE_STORES = 'stores';
+
+    const DEFAULT_SCOPE_ID = 0;
+    const ARRAY_INDEX_LOCAL = 1;
+    const ARRAY_INDEX_REMOTE = 2;
+    const ARRAY_STORE_CONFIG_KEY = 'storeConfig';
+
     /**
      * @var DiffConfigResource
      */
@@ -54,11 +65,11 @@ class StoreConfigDataWriter implements DataWriterInterface
      */
     public function write(array $diffData)
     {
-        $diffData = $diffData['storeConfig'];
+        $diffData = $diffData[self::ARRAY_STORE_CONFIG_KEY];
 
         foreach ($diffData as $scope => $data) {
-            $localValues = $data[1];
-            $remoteValues = $data[2];
+            $localValues = $data[self::ARRAY_INDEX_LOCAL];
+            $remoteValues = $data[self::ARRAY_INDEX_REMOTE];
 
             $localModels = $this->mapDataToModels($localValues, $scope, self::LOCAL_VALUE_FIELD_NAME);
             $remoteModels = $this->mapDataToModels($remoteValues, $scope, self::REMOTE_VALUE_FIELD_NAME);
@@ -85,26 +96,26 @@ class StoreConfigDataWriter implements DataWriterInterface
         foreach ($data as $path => $value) {
             /** @var DiffConfigModel $diffConfigModel */
             $diffConfigModel = $this->diffConfigFactory->create();
-            $diffConfigModel->setData('scope', $scope);
+            $diffConfigModel->setData(self::SCOPE_FIELD_NAME, $scope);
 
-            $scopeId = 0;
+            $scopeId = self::DEFAULT_SCOPE_ID;
 
-            if ($scope === 'websites' || $scope === 'stores') {
+            if ($scope === self::SCOPE_VALUE_WEBSITES || $scope === self::SCOPE_VALUE_STORES) {
                 $splittedPath = explode('/', $path, 2);
                 $code = $splittedPath[0];
                 $path = $splittedPath[1];
 
-                if ($scope === 'websites') {
+                if ($scope === self::SCOPE_VALUE_WEBSITES) {
                     $scopeId = $this->getWebsiteId($code);
                 }
 
-                if ($scope === 'stores') {
+                if ($scope === self::SCOPE_VALUE_STORES) {
                     $scopeId = $this->getStoreId($code);
                 }
             }
 
-            $diffConfigModel->setData('scope_id', $scopeId);
-            $diffConfigModel->setData('path', $path);
+            $diffConfigModel->setData(self::SCOPE_ID_FIELD_NAME, $scopeId);
+            $diffConfigModel->setData(self::PATH_FIELD_NAME, $path);
             $diffConfigModel->setData($valueField, $value);
 
             $models[] = $diffConfigModel;
@@ -119,13 +130,7 @@ class StoreConfigDataWriter implements DataWriterInterface
      */
     private function getWebsiteId($code): int
     {
-        $websites = $this->storeManager->getWebsites(true);
-        foreach ($websites as $website) {
-            if ($website->getCode() === $code) {
-                return $website->getId();
-            }
-        }
-        return 0;
+        return $this->storeManager->getWebsite($code)->getId();
     }
 
     /**
@@ -134,13 +139,7 @@ class StoreConfigDataWriter implements DataWriterInterface
      */
     private function getStoreId($code): int
     {
-        $stores = $this->storeManager->getStores(true);
-        foreach ($stores as $store) {
-            if ($store->getCode() === $code) {
-                return $store->getId();
-            }
-        }
-        return 0;
+        return $this->storeManager->getStore($code)->getId();
     }
 
 }
