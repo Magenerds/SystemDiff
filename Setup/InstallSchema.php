@@ -1,8 +1,10 @@
 <?php
 /**
- * @copyright Copyright (c) 1999-2016 netz98 GmbH (http://www.netz98.de)
+ * NOTICE OF LICENSE
  *
- * @see PROJECT_LICENSE.txt
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
  */
 
 namespace Magenerds\SystemDiff\Setup;
@@ -46,7 +48,12 @@ class InstallSchema implements InstallSchemaInterface
             8,
             ['nullable' => false, 'primary' => false]
         )->addColumn(
-            'diff_value',
+            'diff_value_local',
+            \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
+            null,
+            ['nullable' => false, 'primary' => false]
+        )->addColumn(
+            'diff_value_remote',
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
             ['nullable' => false, 'primary' => false]

@@ -19,7 +19,7 @@ sets. In order to integrate your own data reader and differ, add the following t
  
     <type name="Magenerds\SystemDiff\Differ\DifferPool">
         <arguments>
-            <argument name="differ" xsi:type="array">
+            <argument name="differs" xsi:type="array">
                 <item name="yourDifferKey" xsi:type="string">Namespace\Module\Differ\YourOwnDiffer</item>
             </argument>
         </arguments>
@@ -27,7 +27,7 @@ sets. In order to integrate your own data reader and differ, add the following t
     
     <type name="Magenerds\SystemDiff\DataReader\DataReaderPool">
         <arguments>
-            <argument name="reader" xsi:type="array">
+            <argument name="dataReaders" xsi:type="array">
                 <item name="yourDataReaderKey" xsi:type="string">Namespace\Module\DataReader\YourOwnReader</item>
             </argument>
         </arguments>
