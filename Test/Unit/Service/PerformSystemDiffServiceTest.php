@@ -2,6 +2,7 @@
 
 namespace Magenerds\SystemDiff\Test\Unit\Service;
 
+use Magenerds\SystemDiff\Helper\Config;
 use Magenerds\SystemDiff\Service\DiffDataService;
 use Magenerds\SystemDiff\Service\FetchLocalDataService;
 use Magenerds\SystemDiff\Service\FetchRemoteDataService;
@@ -24,6 +25,8 @@ class PerformSystemDiffServiceTest extends \PHPUnit\Framework\TestCase
     protected $diffDataService;
     /** @var  \Magenerds\SystemDiff\Service\SaveDiffToTableService|\PHPUnit_Framework_MockObject_MockObject */
     protected $saveDataToTableService;
+    /** @var  \Magenerds\SystemDiff\Helper\Config|\PHPUnit_Framework_MockObject_MockObject */
+    protected $helperConfig;
 
     /**
      * Prepare test subject
@@ -46,12 +49,17 @@ class PerformSystemDiffServiceTest extends \PHPUnit\Framework\TestCase
             ->setMethods(['saveData'])
             ->disableOriginalConstructor()
             ->getMock();
+        $this->helperConfig = $this->getMockBuilder(Config::class)
+            ->setMethods(['isEnabled'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $this->testSubject = new PerformSystemDiffService(
             $this->fetchLocalDataService,
             $this->fetchRemoteDataService,
             $this->diffDataService,
-            $this->saveDataToTableService
+            $this->saveDataToTableService,
+            $this->helperConfig
         );
     }
 
@@ -60,6 +68,8 @@ class PerformSystemDiffServiceTest extends \PHPUnit\Framework\TestCase
      */
     public function performDiff()
     {
+
+        $this->helperConfig->expects($this->any())->method('isEnabled')->willReturn(true);
         $localData = ['foo' => 'bar'];
         $remoteData = ['faz' => 'baz'];
 
