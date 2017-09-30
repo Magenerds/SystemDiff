@@ -7,7 +7,7 @@ namespace Magenerds\SystemDiff\Api\Data;
 interface ConfigDataInterface
 {
     /**
-     * @return mixed
+     * @return mixed|array
      */
     public function getData();
 }

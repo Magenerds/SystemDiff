@@ -9,7 +9,7 @@ use Magenerds\SystemDiff\Model\ConfigData;
 class SoapClient extends AbstractClient implements ClientInterface
 {
     /**
-     * @return \ArrayObject
+     * @return ConfigData
      */
     public function fetch()
     {
@@ -28,12 +28,17 @@ class SoapClient extends AbstractClient implements ClientInterface
             ]
         );
         $response = $httpClient->magenerdsSystemDiffServiceFetchLocalDataServiceV1Fetch();
+        $data = [];
 
-        if (isset($response->result->item)) {
-            return new ConfigData(json_decode(json_encode($response->result->item), true));
+        if (isset($response->result->data->string)
+            && is_array($response->result->data->string)
+        ) {
+            foreach ($response->result->data->string as $poolData) {
+                $data[] = json_decode($poolData);
+            }
         }
 
-        return new \ArrayObject();
+        return new ConfigData($data);
     }
 
 }

@@ -18,10 +18,10 @@ class ConfigData implements ConfigDataInterface
     }
 
     /**
-     * @return mixed
+     * @return mixed|array
      */
     public function getData()
     {
-        return $this->data;
+        return (array)$this->data;
     }
 }

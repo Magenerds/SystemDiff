@@ -31,7 +31,7 @@ class FetchLocalDataService implements FetchLocalDataServiceInterface
     }
 
     /**
-     * @return \ArrayObject
+     * @return \Magenerds\SystemDiff\Api\Data\ConfigDataInterface
      */
     public function fetch()
     {

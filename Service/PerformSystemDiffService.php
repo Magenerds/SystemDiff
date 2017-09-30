@@ -74,12 +74,12 @@ class PerformSystemDiffService implements PerformSystemDiffServiceInterface
     public function performDiff()
     {
         if ($this->config->isEnabled()) {
-            $localData = $this->fetchLocalDataService->fetch();
-            $remoteData = $this->fetchRemoteDataService->fetch();
+            $localData = $this->fetchLocalDataService->fetch()->getData();
+            $remoteData = $this->fetchRemoteDataService->fetch()->getData();
 
-            //$diffData = $this->diffDataService->diffData(((array)$localData), ((array)$remoteData));
+            $diffData = $this->diffDataService->diffData(((array)$localData), ((array)$remoteData));
 
-            //$this->saveDiffToTableService->saveData($diffData);
+            $this->saveDiffToTableService->saveData($diffData);
         }
     }
 }
