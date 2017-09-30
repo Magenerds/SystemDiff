@@ -6,7 +6,7 @@ use Magenerds\SystemDiff\Differ\DifferInterface;
 use Magenerds\SystemDiff\Differ\DifferPool;
 use Magenerds\SystemDiff\Service\DiffDataService;
 
-class DiffDataServiceUnitTest extends \PHPUnit_Framework_TestCase
+class DiffDataServiceUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DifferPool|\PHPUnit_Framework_MockObject_MockObject
