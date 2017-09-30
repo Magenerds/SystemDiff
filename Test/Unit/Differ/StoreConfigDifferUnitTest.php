@@ -11,7 +11,7 @@ namespace Magenerds\SystemDiff\Test\Unit\Differ;
 
 use Magenerds\SystemDiff\Differ\StoreConfigDiffer;
 
-class StoreConfigDifferUnitTest extends \PHPUnit_Framework_TestCase
+class StoreConfigDifferUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var StoreConfigDiffer
@@ -30,39 +30,43 @@ class StoreConfigDifferUnitTest extends \PHPUnit_Framework_TestCase
     {
         $diffData1 =
             [
-                'default' => [
-                    'foo' => [
-                        'bar' => [
-                            'fooconfig' => 'foobar'
+                'storeConfig' => [
+                    'default' => [
+                        'foo' => [
+                            'bar' => [
+                                'fooconfig' => 'foobar'
+                            ]
                         ]
-                    ]
-                ],
-                'websites' => [
-                    'foo' => [
-                        'bar' => [
-                            'fooconfig' => 'foobar'
+                    ],
+                    'websites' => [
+                        'foo' => [
+                            'bar' => [
+                                'fooconfig' => 'foobar'
+                            ]
                         ]
-                    ]
-                ],
-                'stores' => []
+                    ],
+                    'stores' => []
+                ]
             ];
         $diffData2 =
             [
-                'default' => [
-                    'foo' => [
-                        'bar' => [
-                            'fooconfig' => 'barfoo'
+                'storeConfig' => [
+                    'default' => [
+                        'foo' => [
+                            'bar' => [
+                                'fooconfig' => 'barfoo'
+                            ]
                         ]
-                    ]
-                ],
-                'websites' => [
-                    'foo' => [
-                        'bar' => [
-                            'fooconfig' => 'foobar'
+                    ],
+                    'websites' => [
+                        'foo' => [
+                            'bar' => [
+                                'fooconfig' => 'foobar'
+                            ]
                         ]
-                    ]
-                ],
-                'stores' => []
+                    ],
+                    'stores' => []
+                ]
             ];
 
         $this->assertEquals(

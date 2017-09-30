@@ -44,6 +44,14 @@
         </arguments>
     </type>
 
+    <type name="Magenerds\SystemDiff\DataWriter\DataWriterPool">
+        <arguments>
+            <argument name="dataWriters" xsi:type="array">
+                <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\DataWriter\StoreConfigDataWriter</item>
+            </argument>
+        </arguments>
+    </type>
+
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">
