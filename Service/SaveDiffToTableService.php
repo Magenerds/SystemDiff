@@ -10,6 +10,8 @@
 namespace Magenerds\SystemDiff\Service;
 
 use Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface;
+use Magenerds\SystemDiff\DataWriter\DataWriterInterface;
+use Magenerds\SystemDiff\DataWriter\DataWriterPool;
 
 /**
  * Class SaveDiffToTableService
@@ -18,11 +20,28 @@ use Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface;
 class SaveDiffToTableService implements SaveDiffToTableServiceInterface
 {
     /**
+     * @var DataWriterPool
+     */
+    private $writerPool;
+
+    /**
+     * StoreConfigDataWriter constructor.
+     * @param DataWriterPool $writerPool
+     */
+    public function __construct(DataWriterPool $writerPool)
+    {
+        $this->writerPool = $writerPool;
+    }
+
+    /**
      * @param array $diffData
-     * @return bool
+     * @return void
      */
     public function saveData(array $diffData)
     {
-        // TODO: Implement saveData() method.
+        foreach ($this->writerPool as $writer) {
+            /** @var DataWriterInterface $writer */
+            $writer->write($diffData);
+        }
     }
 }
