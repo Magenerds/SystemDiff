@@ -9,59 +9,30 @@
 
 namespace Magenerds\SystemDiff\Console\Command;
 
-use Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface;
-use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
-use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
+use Magenerds\SystemDiff\Service\PerformSystemDiffService;
 
 class ExecuteCommand extends Command
 {
     /**
-     * Dry run argument
+     * @var PerformSystemDiffService
      */
-    const DRY_RUN = 'dry-run';
+    private $performSystemDiffService;
 
     /**
-     * Name argument
-     */
-    const NAME_ARGUMENT = 'name';
-
-    /**
-     * @var FetchLocalDataServiceInterface
-     */
-    private $fetchLocalDataService;
-
-    /**
-     * @var FetchRemoteDataServiceInterface
-     */
-    private $fetchRemoteDataService;
-
-    /**
-     * @var DiffDataServiceInterface
-     */
-    private $diffDataService;
-
-    /**
-     * FetchDataCommand constructor.
-     *
-     * @param FetchLocalDataServiceInterface $fetchLocalDataService
-     * @param FetchRemoteDataServiceInterface $fetchRemoteDataService
-     * @param DiffDataServiceInterface $diffDataService
+     * ExecuteCommand constructor.
+     * @param null $name
+     * @param PerformSystemDiffService $performSystemDiffService
      */
     public function __construct(
-        FetchLocalDataServiceInterface $fetchLocalDataService,
-        FetchRemoteDataServiceInterface $fetchRemoteDataService,
-        DiffDataServiceInterface $diffDataService
-    ) {
-        parent::__construct();
+        PerformSystemDiffService $performSystemDiffService,
+        $name = null
+    ){
+        parent::__construct($name);
 
-        $this->fetchLocalDataService = $fetchLocalDataService;
-        $this->fetchRemoteDataService = $fetchRemoteDataService;
-        $this->diffDataService = $diffDataService;
+        $this->performSystemDiffService = $performSystemDiffService;
     }
 
     /**
@@ -71,14 +42,6 @@ class ExecuteCommand extends Command
     {
         $this->setName('system-diff:execute');
         $this->setDescription('system-diff:execute');
-        $this->setDefinition([
-            new InputOption(
-                self::DRY_RUN,
-                '--dry-run',
-                InputOption::VALUE_NONE,
-                'Dry run'
-            )
-        ]);
 
         parent::configure();
     }
@@ -90,13 +53,10 @@ class ExecuteCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $remoteData = $this->fetchRemoteDataService->fetch();
-        $localData = $this->fetchLocalDataService->fetch();
-
-        $difference = $this->diffDataService->diffData($remoteData, $localData);
-
-        if ($input->getOption(self::DRY_RUN)) {
-            $output->writeln(var_export($difference, true));
+        try {
+            $this->performSystemDiffService->performDiff();
+        } catch (\Exception $e) {
+            $output->writeln(sprintf('An error occurred during diff: %s', $e->getMessage()));
         }
     }
 }

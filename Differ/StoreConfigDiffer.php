@@ -12,11 +12,16 @@ namespace Magenerds\SystemDiff\Differ;
 class StoreConfigDiffer extends AbstractDiffer
 {
     /**
+     * Holds the data reader code for the store configuration
+     */
+    const DATA_READER_CODE = 'storeConfig';
+
+    /**
      * Diffs two data sets of two systems.
      *
      * @param array $localData
      * @param array $remoteData
-     * @return array
+     * @return []
      */
     public function diff(array $localData, array $remoteData)
     {
@@ -33,7 +38,7 @@ class StoreConfigDiffer extends AbstractDiffer
         $remoteConfig['websites'] = $this->flattenArray($remoteData['websites'], '');
         $remoteConfig['stores'] = $this->flattenArray($remoteData['stores'], '');
 
-        $diff = array();
+        $diff = [];
         $diff['default'] = $this->diffArrays($localConfig['default'], $remoteConfig['default']);
         $diff['websites'] = $this->diffArrays($localConfig['websites'], $remoteConfig['websites']);
         $diff['stores'] = $this->diffArrays($localConfig['stores'], $remoteConfig['stores']);
@@ -44,11 +49,18 @@ class StoreConfigDiffer extends AbstractDiffer
     /**
      * Validates the given array if all necessary array keys exist. Otherwise an empty array is added.
      *
-     * @param array $array
-     * @return array
+     * @param [] $array
+     * @return []
      */
     protected function validateArray(array $array)
     {
+        // if data reader code does not exist, no data is provided
+        if (!array_key_exists(self::DATA_READER_CODE, $array)) {
+            $array = [];
+        } else {
+            $array = $array[self::DATA_READER_CODE];
+        }
+
         if (!array_key_exists('default', $array)) {
             $array['default'] = [];
         }
@@ -69,14 +81,14 @@ class StoreConfigDiffer extends AbstractDiffer
      *
      * @param $arr
      * @param $path
-     * @return array
+     * @return []
      */
     protected function flattenArray($arr, $path)
     {
-        $result = array();
+        $result = [];
 
         if(!is_array($arr)){
-            return array(ltrim($path, '/') => $arr);
+            return [ltrim($path, '/') => $arr];
         }
 
         foreach($arr as $key => $value){

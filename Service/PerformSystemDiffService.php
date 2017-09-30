@@ -9,7 +9,10 @@
 
 namespace Magenerds\SystemDiff\Service;
 
+use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
+use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
 use Magenerds\SystemDiff\Api\Service\PerformSystemDiffServiceInterface;
+use Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface;
 
 /**
  * Class PerformSystemDiffService
@@ -17,12 +20,55 @@ use Magenerds\SystemDiff\Api\Service\PerformSystemDiffServiceInterface;
  */
 class PerformSystemDiffService implements PerformSystemDiffServiceInterface
 {
+    /**
+     * @var FetchLocalDataServiceInterface
+     */
+    protected $fetchLocalDataService;
 
     /**
-     * @return bool
+     * @var FetchRemoteDataServiceInterface
+     */
+    protected $fetchRemoteDataService;
+
+    /**
+     * @var DiffDataService
+     */
+    protected $diffDataService;
+
+    /**
+     * @var SaveDiffToTableServiceInterface
+     */
+    private $saveDiffToTableService;
+
+    /**
+     * PerformSystemDiffService constructor.
+     * @param FetchLocalDataServiceInterface $fetchLocalDataService
+     * @param FetchRemoteDataServiceInterface $fetchRemoteDataService
+     * @param DiffDataService $diffDataService
+     * @param SaveDiffToTableServiceInterface $saveDiffToTableService
+     */
+    public function __construct(
+        FetchLocalDataServiceInterface $fetchLocalDataService,
+        FetchRemoteDataServiceInterface $fetchRemoteDataService,
+        DiffDataService $diffDataService,
+        SaveDiffToTableServiceInterface $saveDiffToTableService
+    ) {
+        $this->fetchLocalDataService = $fetchLocalDataService;
+        $this->fetchRemoteDataService = $fetchRemoteDataService;
+        $this->diffDataService = $diffDataService;
+        $this->saveDiffToTableService = $saveDiffToTableService;
+    }
+
+    /**
+     * Initiates the diff
      */
     public function performDiff()
     {
-        // TODO: Implement performDiff() method.
+        $localData = $this->fetchLocalDataService->fetch();
+        $remoteData = $this->fetchRemoteDataService->fetch();
+
+        $diffData = $this->diffDataService->diffData($localData, $remoteData);
+
+        $this->saveDiffToTableService->saveData($diffData);
     }
 }
