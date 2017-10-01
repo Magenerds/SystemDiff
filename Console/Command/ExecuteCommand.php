@@ -17,21 +17,28 @@ use Magenerds\SystemDiff\Service\PerformSystemDiffService;
 class ExecuteCommand extends Command
 {
     /**
+     * Holds the command name
+     */
+    const COMMAND_NAME = 'system-diff:execute';
+
+    /**
+     * Holds the command description
+     */
+    const COMMAND_DESCRIPTION = 'system-diff:execute';
+
+    /**
      * @var PerformSystemDiffService
      */
     private $performSystemDiffService;
 
     /**
      * ExecuteCommand constructor.
-     * @param null $name
      * @param PerformSystemDiffService $performSystemDiffService
      */
     public function __construct(
-        PerformSystemDiffService $performSystemDiffService,
-        $name = null
+        PerformSystemDiffService $performSystemDiffService
     ){
-        parent::__construct($name);
-
+        parent::__construct(self::COMMAND_NAME);
         $this->performSystemDiffService = $performSystemDiffService;
     }
 
@@ -40,8 +47,8 @@ class ExecuteCommand extends Command
      */
     public function configure()
     {
-        $this->setName('system-diff:execute');
-        $this->setDescription('system-diff:execute');
+        $this->setName(self::COMMAND_NAME);
+        $this->setDescription(self::COMMAND_DESCRIPTION);
 
         parent::configure();
     }
