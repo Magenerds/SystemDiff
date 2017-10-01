@@ -28,6 +28,9 @@
     <preference for="Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface"
                 type="Magenerds\SystemDiff\Service\SaveDiffToTableService" />
 
+    <preference for="Magenerds\SystemDiff\Api\Data\ConfigDataInterface"
+                type="Magenerds\SystemDiff\Model\ConfigData" />
+
     <preference for="Magento\Config\Block\System\Config\Form\Field"
                 type="Magenerds\SystemDiff\Block\System\Config\Form\Field" />
 

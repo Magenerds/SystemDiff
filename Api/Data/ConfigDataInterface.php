@@ -16,7 +16,7 @@ interface ConfigDataInterface
      *
      * This is a requirement of the REST/SOAP API, else the first index is cut out.
      *
-     * @return mixed|array
+     * @return mixed|[]
      */
     public function getData();
 }
