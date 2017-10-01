@@ -51,6 +51,7 @@ class Update extends Action
      */
     public function execute()
     {
+        /** @var $result Json */
         $result = $this->jsonFactory->create();
 
         if (!$params = $this->getParams()) {

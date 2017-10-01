@@ -22,7 +22,7 @@ class DataWriterPool implements \IteratorAggregate
 
     /**
      * @param TMapFactory $tmapFactory
-     * @param array $dataWriters
+     * @param [] $dataWriters
      */
     public function __construct(
         TMapFactory $tmapFactory,

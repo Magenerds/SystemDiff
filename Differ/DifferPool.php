@@ -23,7 +23,7 @@ class DifferPool implements \IteratorAggregate
 
     /**
      * @param TMapFactory $tmapFactory
-     * @param array $differs
+     * @param [] $differs
      */
     public function __construct(
         TMapFactory $tmapFactory,

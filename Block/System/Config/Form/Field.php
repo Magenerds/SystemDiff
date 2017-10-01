@@ -119,7 +119,7 @@ class Field extends CoreField
         $entry = $collection->getFirstItem();
         if (count($entry->getData()) > 0) {
             $html .= '<td class="sync">';
-            $html .=    '<button class="sync-config config-diff-action" type="button">';
+            $html .=    '<button class="sync-config" type="button">';
             $html .=        '<div class="action-sync"></div>';
             $html .=    '</button>';
             $html .= '</td>';

@@ -34,7 +34,7 @@ class SaveDiffToTableService implements SaveDiffToTableServiceInterface
     }
 
     /**
-     * @param array $diffData
+     * @param [] $diffData
      * @return void
      */
     public function saveData(array $diffData)

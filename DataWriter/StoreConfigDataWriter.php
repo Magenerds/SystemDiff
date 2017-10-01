@@ -16,15 +16,20 @@ use Magento\Store\Model\StoreManagerInterface;
 
 class StoreConfigDataWriter implements DataWriterInterface
 {
+    /**
+     * Holds database field names
+     */
     const LOCAL_VALUE_FIELD_NAME = 'diff_value_local';
     const REMOTE_VALUE_FIELD_NAME = 'diff_value_remote';
-
     const SCOPE_FIELD_NAME = 'scope';
     const SCOPE_ID_FIELD_NAME = 'scope_id';
     const PATH_FIELD_NAME = 'path';
     const SCOPE_VALUE_WEBSITES = 'websites';
     const SCOPE_VALUE_STORES = 'stores';
 
+    /**
+     * Holds further necessary consts
+     */
     const DEFAULT_SCOPE_ID = 0;
     const ARRAY_INDEX_LOCAL = 1;
     const ARRAY_INDEX_REMOTE = self::EXPECTED_SPLITTED_PATH_LENGTH;
@@ -36,10 +41,12 @@ class StoreConfigDataWriter implements DataWriterInterface
      * @var DiffConfigResource
      */
     private $diffConfigResource;
+
     /**
      * @var DiffConfigFactory
      */
     private $diffConfigFactory;
+
     /**
      * @var StoreManagerInterface
      */
@@ -62,7 +69,7 @@ class StoreConfigDataWriter implements DataWriterInterface
     }
 
     /**
-     * @param array $diffData
+     * @param [] $diffData
      * @return void
      */
     public function write(array $diffData)
@@ -199,5 +206,4 @@ class StoreConfigDataWriter implements DataWriterInterface
     {
         return $this->storeManager->getStore($code)->getId();
     }
-
 }

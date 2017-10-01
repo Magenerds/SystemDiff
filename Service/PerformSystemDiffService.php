@@ -24,17 +24,17 @@ class PerformSystemDiffService implements PerformSystemDiffServiceInterface
     /**
      * @var FetchLocalDataServiceInterface
      */
-    protected $fetchLocalDataService;
+    private $fetchLocalDataService;
 
     /**
      * @var FetchRemoteDataServiceInterface
      */
-    protected $fetchRemoteDataService;
+    private $fetchRemoteDataService;
 
     /**
      * @var DiffDataService
      */
-    protected $diffDataService;
+    private $diffDataService;
 
     /**
      * @var SaveDiffToTableServiceInterface

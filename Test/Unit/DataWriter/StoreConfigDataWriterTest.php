@@ -48,6 +48,9 @@ class StoreConfigDataWriterTest extends TestCase
      */
     private $writerPartialMock;
 
+    /**
+     * Set up function
+     */
     public function setUp()
     {
         $this->diffConfigResourceMock = $this->getMockBuilder(DiffConfigResource::class)

@@ -12,8 +12,8 @@ namespace Magenerds\SystemDiff\Api\Service;
 interface DiffDataServiceInterface
 {
     /**
-     * @param array $localData
-     * @param array $remoteData
+     * @param [] $localData
+     * @param [] $remoteData
      */
     public function diffData(array $localData, array $remoteData);
 }

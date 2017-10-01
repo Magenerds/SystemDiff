@@ -12,7 +12,7 @@ namespace Magenerds\SystemDiff\DataReader;
 interface DataReaderInterface
 {
     /**
-     * @return array
+     * @return []
      */
     public function read();
 }

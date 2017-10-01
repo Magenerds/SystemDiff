@@ -109,8 +109,8 @@ class StoreConfigDiffer extends AbstractDiffer
     }
 
     /**
-     * @param array $data
-     * @return array
+     * @param [] $data
+     * @return []
      */
     protected function filterEmptyValues(array $data)
     {

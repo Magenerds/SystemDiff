@@ -30,9 +30,9 @@ class DiffDataService implements DiffDataServiceInterface
     }
 
     /**
-     * @param array $localData
-     * @param array $remoteData
-     * @return array
+     * @param [] $localData
+     * @param [] $remoteData
+     * @return []
      */
     public function diffData(array $localData, array $remoteData)
     {

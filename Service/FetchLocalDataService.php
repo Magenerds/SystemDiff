@@ -12,7 +12,8 @@ namespace Magenerds\SystemDiff\Service;
 use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
 use Magenerds\SystemDiff\DataReader\DataReaderPool;
 use Magenerds\SystemDiff\DataReader\DataReaderInterface;
-use Magenerds\SystemDiff\Model\ConfigData;
+use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
+use Magenerds\SystemDiff\Api\Data\ConfigDataInterfaceFactory;
 
 class FetchLocalDataService implements FetchLocalDataServiceInterface
 {
@@ -22,16 +23,25 @@ class FetchLocalDataService implements FetchLocalDataServiceInterface
     private $dataReaderPool;
 
     /**
+     * @var ConfigDataInterfaceFactory
+     */
+    private $configDataFactory;
+
+    /**
      * FetchLocalDataService constructor.
      * @param DataReaderPool $dataReaderPool
+     * @param ConfigDataInterfaceFactory $configDataFactory
      */
-    public function __construct(DataReaderPool $dataReaderPool)
-    {
+    public function __construct(
+        DataReaderPool $dataReaderPool,
+        ConfigDataInterfaceFactory $configDataFactory
+    ){
         $this->dataReaderPool = $dataReaderPool;
+        $this->configDataFactory = $configDataFactory;
     }
 
     /**
-     * @return \Magenerds\SystemDiff\Api\Data\ConfigDataInterface
+     * @return ConfigDataInterface
      */
     public function fetch()
     {
@@ -42,6 +52,9 @@ class FetchLocalDataService implements FetchLocalDataServiceInterface
             $data[$dataReaderCode] = $dataReader->read();
         }
 
-        return new ConfigData($data);
+        /** @var $configData ConfigDataInterface */
+        $configData = $this->configDataFactory->create($data);
+
+        return $configData;
     }
 }

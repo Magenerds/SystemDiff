@@ -16,15 +16,15 @@
                 <store_config>1</store_config>
             </display>
             <connection>
-                <api_type>\Magenerds\SystemDiff\Remote\SoapClient</api_type>
+                <api_type>Magenerds\SystemDiff\Remote\SoapClient</api_type>
             </connection>
         </system_diff>
         <system>
             <magenerds>
                 <system_diff>
                     <api_types>
-                        <REST>\Magenerds\SystemDiff\Remote\RestClient</REST>
-                        <SOAP>\Magenerds\SystemDiff\Remote\SoapClient</SOAP>
+                        <REST>Magenerds\SystemDiff\Remote\RestClient</REST>
+                        <SOAP>Magenerds\SystemDiff\Remote\SoapClient</SOAP>
                     </api_types>
                 </system_diff>
             </magenerds>

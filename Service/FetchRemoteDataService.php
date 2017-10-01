@@ -21,6 +21,7 @@ class FetchRemoteDataService implements FetchRemoteDataServiceInterface
      * @var ClientInterface
      */
     private $client;
+
     /**
      * @var ClientAdapter
      */

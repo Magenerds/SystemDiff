@@ -9,6 +9,8 @@
 
 namespace Magenerds\SystemDiff\Api\Service;
 
+use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
+
 /**
  * Return locally configured config data.
  *
@@ -19,7 +21,7 @@ interface FetchLocalDataServiceInterface
     /**
      * Returns locally configured config data.
      *
-     * @return \Magenerds\SystemDiff\Api\Data\ConfigDataInterface
+     * @return ConfigDataInterface
      */
     public function fetch();
 }

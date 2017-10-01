@@ -12,7 +12,7 @@ namespace Magenerds\SystemDiff\DataWriter;
 interface DataWriterInterface
 {
     /**
-     * @param array $diffData
+     * @param [] $diffData
      * @return void
      */
     public function write(array $diffData);

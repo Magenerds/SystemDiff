@@ -10,6 +10,9 @@ use Magento\Framework\Option\ArrayInterface;
  */
 class ApiType implements ArrayInterface
 {
+    /**
+     * Holds the configuration key for api types
+     */
     const XML_PATH_TYPES = 'system/magenerds/system_diff/api_types';
 
     /**
@@ -30,7 +33,7 @@ class ApiType implements ArrayInterface
     /**
      * Options getter
      *
-     * @return array
+     * @return []
      */
     public function toOptionArray()
     {
@@ -48,7 +51,7 @@ class ApiType implements ArrayInterface
     /**
      * Get options in "key-value" format
      *
-     * @return array
+     * @return []
      */
     public function toArray()
     {
@@ -68,14 +71,13 @@ class ApiType implements ArrayInterface
      *
      * This is the place to extend the config with additional types.
      *
-     * @return array
+     * @return []
      */
     protected function getConfiguredOptions(): array
     {
         $types = $this->scopeConfig->getValue(self::XML_PATH_TYPES);
 
         if (is_array($types)) {
-
             return $types;
         }
 

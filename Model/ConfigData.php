@@ -1,18 +1,27 @@
 <?php
-
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
 
 namespace Magenerds\SystemDiff\Model;
-
 
 use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
 
 class ConfigData implements ConfigDataInterface
 {
+    /**
+     * @var []
+     */
+    private $data;
 
     /**
      * ConfigData constructor.
      *
-     * @param array $data
+     * @param [] $data
      */
     public function __construct(array $data)
     {
@@ -21,7 +30,7 @@ class ConfigData implements ConfigDataInterface
 
     /**
      * @inheritdoc
-     * @return mixed|array
+     * @return mixed|[]
      */
     public function getData()
     {

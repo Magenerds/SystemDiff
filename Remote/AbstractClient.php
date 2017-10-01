@@ -13,7 +13,11 @@ use Magenerds\SystemDiff\Helper\Config;
 
 class AbstractClient
 {
-    protected $helper;
+    /**
+     * @var Config
+     */
+    private $helper;
+
     /**
      * Client constructor.
      *
@@ -26,7 +30,7 @@ class AbstractClient
 
     /**
      * @param $json
-     * @return array
+     * @return []
      */
     protected function buildDataFromJson($json)
     {
