@@ -26,4 +26,12 @@ class DiffConfig extends AbstractDb
     {
         $this->_init('magenerds_systemdiff_diff_config', 'diff_value_id');
     }
+
+    /**
+     * Clear the actual config data
+     */
+    public function clearConfigData()
+    {
+        $this->getConnection()->truncateTable($this->getMainTable());
+    }
 }

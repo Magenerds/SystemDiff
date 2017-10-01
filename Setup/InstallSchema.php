@@ -57,6 +57,14 @@ class InstallSchema implements InstallSchemaInterface
             \Magento\Framework\DB\Ddl\Table::TYPE_TEXT,
             null,
             ['nullable' => false, 'primary' => false]
+        )->addIndex(
+            $setup->getIdxName(
+                'magenerds_systemdiff_diff_config',
+                ['scope', 'scope_id', 'path'],
+                \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE
+            ),
+            ['scope', 'scope_id', 'path'],
+            ['type' => \Magento\Framework\DB\Adapter\AdapterInterface::INDEX_TYPE_UNIQUE]
         );
         $setup->getConnection()->createTable($table);
 
