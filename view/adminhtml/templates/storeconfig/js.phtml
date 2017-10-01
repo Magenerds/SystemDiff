@@ -30,7 +30,7 @@
                     var toReplace = $(parent).find('.value')[0];
                     var replace = $(parent).find('.value')[1];
                     $(toReplace).replaceWith(replace);
-                    $(parent).parent().find('.sync').remove();
+                    $(parent).find('.sync').remove();
                 }
             });
         });
