@@ -119,7 +119,7 @@ class Field extends CoreField
         $entry = $collection->getFirstItem();
         if (count($entry->getData()) > 0) {
             $html .= '<td class="sync">';
-            $html .=    '<button class="sync-config" onclick="replaceConfig(this)" type="button">';
+            $html .=    '<button class="sync-config config-diff-action" type="button">';
             $html .=        '<div class="action-sync"></div>';
             $html .=    '</button>';
             $html .= '</td>';
@@ -138,7 +138,7 @@ class Field extends CoreField
             $html .= $scopeId;
             $html .=        '</div>';
             $html .=        '<div class="update-url">';
-            $html .= ''; // TODO: Insert sync url
+            $html .=            $this->getUrl('magenerds/storeConfig/update');
             $html .=        '</div>';
             $html .=    '</div>';
             $html .= '</td>';

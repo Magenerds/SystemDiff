@@ -31,7 +31,7 @@ class Config
     /**
      * @var ScopeConfigInterface
      */
-    protected $scopeConfig;
+    private $scopeConfig;
 
     /**
      * Config constructor.
