@@ -11,9 +11,7 @@ namespace Magenerds\SystemDiff\Service;
 
 use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
 use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
-use Magenerds\SystemDiff\Remote\ClientAdapter;
 use Magenerds\SystemDiff\Remote\ClientInterface;
-use Magento\Framework\Config\Data\ConfigData;
 
 class FetchRemoteDataService implements FetchRemoteDataServiceInterface
 {
@@ -21,19 +19,14 @@ class FetchRemoteDataService implements FetchRemoteDataServiceInterface
      * @var ClientInterface
      */
     private $client;
-    /**
-     * @var ClientAdapter
-     */
-    private $clientAdapter;
 
     /**
-     * @param ClientAdapter $clientAdapter
+     * @param ClientInterface $clientAdapter
      */
-    public function __construct(ClientAdapter $clientAdapter)
+    public function __construct(ClientInterface $clientAdapter)
     {
 
-        $this->clientAdapter = $clientAdapter;
-        $this->client = $this->clientAdapter->getClient();
+        $this->client = $clientAdapter;
     }
 
     /**
