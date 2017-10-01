@@ -47,6 +47,11 @@
                     <label>Access Token</label>
                     <comment>Access Token of the integration user on the remote system. This user has to have the checkmark on Stores > Settings > Configuration > SystemDiff Section</comment>
                 </field>
+                <field id="system_diff_sync_button" translate="label comment" type="button" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <frontend_model>Magenerds\SystemDiff\Block\System\Config\Form\SyncButton</frontend_model>
+                    <label>Diff now</label>
+                    <comment>Run the sync/diff process now.</comment>
+                </field>
             </group>
             <group id="display" translate="label" sortOrder="30" showInDefault="1" showInStore="0" showInWebsite="0">
                 <label>Display</label>
