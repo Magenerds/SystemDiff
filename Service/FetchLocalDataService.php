@@ -52,9 +52,6 @@ class FetchLocalDataService implements FetchLocalDataServiceInterface
             $data[$dataReaderCode] = $dataReader->read();
         }
 
-        /** @var $configData ConfigDataInterface */
-        $configData = $this->configDataFactory->create($data);
-
-        return $configData;
+        return $this->configDataFactory->create(['data' => $data]);
     }
 }

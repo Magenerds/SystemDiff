@@ -10,22 +10,32 @@
 namespace Magenerds\SystemDiff\Remote;
 
 use Magenerds\SystemDiff\Helper\Config;
+use Magenerds\SystemDiff\Api\Data\ConfigDataInterfaceFactory;
 
 class AbstractClient
 {
     /**
      * @var Config
      */
-    private $helper;
+    protected $helper;
+
+    /**
+     * @var ConfigDataInterfaceFactory
+     */
+    protected $configDataFactory;
 
     /**
      * Client constructor.
      *
      * @param Config $configHelper
+     * @param ConfigDataInterfaceFactory $configDataFactory
      */
-    public function __construct(Config $configHelper)
-    {
+    public function __construct(
+        Config $configHelper,
+        ConfigDataInterfaceFactory $configDataFactory
+    ) {
         $this->helper = $configHelper;
+        $this->configDataFactory = $configDataFactory;
     }
 
     /**

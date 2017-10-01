@@ -10,7 +10,6 @@
 namespace Magenerds\SystemDiff\Remote;
 
 use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
-use Magenerds\SystemDiff\Model\ConfigData;
 
 class RestClient extends AbstractClient implements ClientInterface
 {
@@ -31,10 +30,10 @@ class RestClient extends AbstractClient implements ClientInterface
             $responseData = json_decode($response->getBody());
 
             if (isset($responseData->data[0])) {
-                return new ConfigData($this->buildDataFromJson($responseData->data[0]));
+                return $this->configDataFactory->create(['data' => $this->buildDataFromJson($responseData->data[0])]);
             }
 
-            throw new \Exception("SOAP response could not be read");
+            throw new \Exception("REST response could not be read");
         }
 
         throw new \Exception("Request to remote was not successfull");
