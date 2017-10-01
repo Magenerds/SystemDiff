@@ -19,6 +19,7 @@
                         </resource>
                     </resource>
                 </resource>
+                <resource id="Magenerds_Dashboard::store_config_update" title="System Diff Store Config Update" sortOrder="10" />
             </resource>
         </resources>
     </acl>

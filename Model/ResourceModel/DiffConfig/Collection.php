@@ -26,8 +26,6 @@ class Collection extends AbstractCollection
      */
     protected function _construct()
     {
-        $this->_init(DiffConfig::class,
-            DiffConfigResource::class
-        );
+        $this->_init(DiffConfig::class, DiffConfigResource::class);
     }
 }
