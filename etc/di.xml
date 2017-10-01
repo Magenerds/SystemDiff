@@ -16,9 +16,6 @@
     <preference for="Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\FetchLocalDataService" />
 
-    <preference for="Magenerds\SystemDiff\Remote\ClientInterface"
-                type="\Magenerds\SystemDiff\Remote\Client" />
-
     <preference for="Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\DiffDataService" />
 
