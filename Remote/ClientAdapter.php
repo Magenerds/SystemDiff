@@ -13,8 +13,13 @@ use Magenerds\SystemDiff\Helper\Config;
 use Magento\Framework\ObjectManager\ObjectManager;
 use Magento\Framework\ObjectManagerInterface;
 
-class ClientAdapter implements ClientAdapterInterface
+class ClientAdapter implements ClientInterface
 {
+    /**
+     * @var ClientInterface
+     */
+    private $subject;
+
     /**
      * @var Config
      */
@@ -27,6 +32,7 @@ class ClientAdapter implements ClientAdapterInterface
 
     /**
      * ClientAdapter constructor.
+     *
      * @param Config $configHelper
      * @param ObjectManagerInterface $objectManager
      */
@@ -36,8 +42,12 @@ class ClientAdapter implements ClientAdapterInterface
         $this->objectManager = $objectManager;
     }
 
-    public function getClient() : ClientInterface
+    public function fetch()
     {
-        return $this->objectManager->get($this->configHelper->getApiType());
+        if (null === $this->subject) {
+            $this->subject = $this->objectManager->get($this->configHelper->getApiType());
+        }
+
+        return $this->subject->fetch();
     }
 }

@@ -10,6 +10,9 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
+    <preference for="Magenerds\SystemDiff\Remote\ClientInterface"
+                type="Magenerds\SystemDiff\Remote\ClientAdapter" />
+
     <preference for="Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\FetchRemoteDataService" />
 

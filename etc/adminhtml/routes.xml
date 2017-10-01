@@ -12,7 +12,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="admin">
         <route id="magenerds" frontName="magenerds">
-            <module name="Magenerds_SystemDiff"/>
+            <module name="Magenerds_SystemDiff" before="Magento_Adminhtml"/>
         </route>
     </router>
 </config>

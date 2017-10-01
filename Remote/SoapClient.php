@@ -15,6 +15,7 @@ class SoapClient extends AbstractClient implements ClientInterface
 {
     /**
      * @return ConfigData
+     * @throws \Exception If response is faulty
      */
     public function fetch()
     {
