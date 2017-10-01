@@ -9,6 +9,10 @@ in order to integrate more differs and readers.
 For general usage the functionality should be enabled in the system configuration. In order to connect two systems
 you need to configure the web service API. You can either choose REST or SOAP. Enter the url of the remote system
 and provide an access token.
+
+## Backend Usage
+In the system configuration of the module you can find a `Run diff` button which triggers the sync to the remote system
+and starts the diff.
  
 ## Command Line Usage
 There is a command available which currently outputs the differences of the data sets of both systems. You can use it
@@ -18,7 +22,7 @@ like the following:
 
 ## Cron Job Usage
 There is a cron job defined which triggers a diff every hour.
- 
+
 ## Integrate your own differs and readers
 We implemented differ and reader pools which hold concrete differ and reader implementations configured via `di.xml`.
 Of course it is necessary to add a differ and a compatible data reader. The data reader's job is to know how to read the
