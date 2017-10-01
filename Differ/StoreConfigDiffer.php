@@ -38,6 +38,13 @@ class StoreConfigDiffer extends AbstractDiffer
         $remoteConfig['websites'] = $this->flattenArray($remoteData['websites'], '');
         $remoteConfig['stores'] = $this->flattenArray($remoteData['stores'], '');
 
+        $localConfig['default'] = $this->filterEmptyValues($localConfig['default']);
+        $localConfig['websites'] = $this->filterEmptyValues($localConfig['websites']);
+        $localConfig['stores'] = $this->filterEmptyValues($localConfig['stores']);
+        $remoteConfig['default'] = $this->filterEmptyValues($remoteConfig['default']);
+        $remoteConfig['websites'] = $this->filterEmptyValues($remoteConfig['websites']);
+        $remoteConfig['stores'] = $this->filterEmptyValues($remoteConfig['stores']);
+
         $diff = [];
         $diff['default'] = $this->diffArrays($localConfig['default'], $remoteConfig['default']);
         $diff['websites'] = $this->diffArrays($localConfig['websites'], $remoteConfig['websites']);
@@ -87,11 +94,11 @@ class StoreConfigDiffer extends AbstractDiffer
     {
         $result = [];
 
-        if(!is_array($arr)){
+        if (!is_array($arr)) {
             return [ltrim($path, '/') => $arr];
         }
 
-        foreach($arr as $key => $value){
+        foreach ($arr as $key => $value) {
             $_path = $path;
             $_path = $_path . '/' . $key;
             $res = $this->flattenArray($value, $_path);
@@ -99,5 +106,20 @@ class StoreConfigDiffer extends AbstractDiffer
         }
 
         return $result;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    protected function filterEmptyValues(array $data)
+    {
+        foreach ($data as $path => $value) {
+            if (empty($value)) {
+                unset($data[$path]);
+            }
+        }
+
+        return $data;
     }
 }
