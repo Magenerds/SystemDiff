@@ -67,6 +67,8 @@ class StoreConfigDataWriter implements DataWriterInterface
      */
     public function write(array $diffData)
     {
+        $this->clearCurrentData();
+
         if (empty($diffData) || !array_key_exists(self::ARRAY_STORE_CONFIG_KEY, $diffData)) {
             return;
         }
@@ -87,15 +89,38 @@ class StoreConfigDataWriter implements DataWriterInterface
             $localValues = $data[self::ARRAY_INDEX_LOCAL];
             $remoteValues = $data[self::ARRAY_INDEX_REMOTE];
 
+            $combinedValues = [];
+
+            foreach ($localValues as $localPath => $localValue) {
+                if (array_key_exists($localPath, $remoteValues)) {
+                    $combinedValues[$localPath] = [
+                        self::LOCAL_VALUE_FIELD_NAME => $localValue,
+                        self::REMOTE_VALUE_FIELD_NAME => $remoteValues[$localPath]
+                    ];
+
+                    unset($localValues[$localPath]);
+                    unset($remoteValues[$localPath]);
+                }
+            }
+
             $localModels = $this->mapDataToModels($localValues, $scope, self::LOCAL_VALUE_FIELD_NAME);
             $remoteModels = $this->mapDataToModels($remoteValues, $scope, self::REMOTE_VALUE_FIELD_NAME);
+            $combinedModels = $this->mapDataToModels($combinedValues, $scope);
 
-            $scopeModels = array_merge($localModels, $remoteModels);
+            $scopeModels = array_merge($localModels, $remoteModels, $combinedModels);
 
             foreach ($scopeModels as $scopeModel) {
                 $this->diffConfigResource->save($scopeModel);
             }
         }
+    }
+
+    /**
+     * Clear current data in the beginning
+     */
+    protected function clearCurrentData()
+    {
+        $this->diffConfigResource->clearConfigData();
     }
 
     /**
@@ -105,7 +130,7 @@ class StoreConfigDataWriter implements DataWriterInterface
      *
      * @return DiffConfigModel[]
      */
-    protected function mapDataToModels(array $data, $scope, $valueField)
+    protected function mapDataToModels(array $data, $scope, $valueField = null)
     {
         $models = [];
 
@@ -141,7 +166,15 @@ class StoreConfigDataWriter implements DataWriterInterface
 
             $diffConfigModel->setData(self::SCOPE_ID_FIELD_NAME, $scopeId);
             $diffConfigModel->setData(self::PATH_FIELD_NAME, $path);
-            $diffConfigModel->setData($valueField, $value);
+
+            if (is_array($value) && is_null($valueField)) {
+                foreach ($value as $fieldName => $v) {
+                    $diffConfigModel->setData($fieldName, $v);
+                }
+            } else {
+                $diffConfigModel->setData($valueField, $value);
+            }
+
 
             $models[] = $diffConfigModel;
         }
