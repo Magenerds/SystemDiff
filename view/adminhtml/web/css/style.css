@@ -5,16 +5,16 @@
  * that is available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  */
-.accordion .config td.label {
+.accordion .config td.label, .accordion .config colgroup.label {
     width: 20%;
 }
 
-.accordion .config td.value {
+.accordion .config td.value, .accordion .config colgroup.value {
     width: 35%;
     vertical-align: unset;
 }
 
-.accordion .config td.sync {
+.accordion .config td.sync, .accordion .config colgroup.sync {
     width: 10%;
 }
 
