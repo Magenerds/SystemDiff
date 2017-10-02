@@ -13,6 +13,7 @@ use Magenerds\SystemDiff\Service\PerformSystemDiffService;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
+use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
 class Diff extends Action
 {
@@ -32,20 +33,28 @@ class Diff extends Action
     private $performSystemDiffService;
 
     /**
+     * @var TimezoneInterface
+     */
+    private $timezone;
+
+    /**
      * Diff action constructor.
      *
      * @param Context $context
      * @param JsonFactory $jsonFactory
      * @param PerformSystemDiffService $performSystemDiffService
+     * @param TimezoneInterface $timezone
      */
     public function __construct(
         Context $context,
         JsonFactory $jsonFactory,
-        PerformSystemDiffService $performSystemDiffService
+        PerformSystemDiffService $performSystemDiffService,
+        TimezoneInterface $timezone
     ) {
         $this->context = $context;
         $this->jsonFactory = $jsonFactory;
         $this->performSystemDiffService = $performSystemDiffService;
+        $this->timezone = $timezone;
 
         parent::__construct($context);
     }
@@ -60,15 +69,22 @@ class Diff extends Action
 
         $result = $this->jsonFactory->create();
 
-        $message = 'OK';
+        $message = 'Diff successfully done at %s.';
 
         try {
             $this->performSystemDiffService->performDiff();
         } catch (\Exception $e) {
-            $message = "Error performing system diff.";
+            $message = __("Error performing system diff at %s.");
+            $result->setStatusHeader(500);
         }
 
-        $result->setData(['message' => $message]);
+        $result->setData(
+            [
+                'message' => sprintf(
+                    __($message),
+                    $this->timezone->formatDateTime(null, \IntlDateFormatter::SHORT, true))
+            ]
+        );
 
         return $result;
     }
