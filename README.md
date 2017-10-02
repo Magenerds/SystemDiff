@@ -4,19 +4,53 @@ This extension is the successor of [TechDivision_SystemConfigDiff](https://githu
 for Magento 2. Data from one Magento instance can be compared with another instance. This is useful if you have a test
 and a live system and you have to compare its data, i.e. system configuration. It is designed to be extended via `di.xml` 
 in order to integrate more differs and readers.
+
+## Requirements
+
+Magento version >= 2.2
  
 ## Configuration
-For general usage the functionality should be enabled in the system configuration. In order to connect two systems
-you need to configure the web service API. You can either choose REST or SOAP. Enter the url of the remote system
-and provide an access token.
+
+The extension must be installed on both the local and remote instance.
+
+In order to connect two systems you need to configure the web service API. 
+
+An integration (```System > Integrations```) must exist on the *remote* system 
+with the API resource
+
+```Stores > Settings > Configuration > System Diff Section``` 
+
+The Access Token of this integration must be used on the *local* instance in
+
+```Stores > Configuration > Magenerds > SystemDiff > Connection > Access Token```
+
+You can choose REST or SOAP as API to use in
+
+```Stores > Configuration > Magenerds > SystemDiff > Connection > API Type```
+
+Enter the url of the remote system in
+
+```Stores > Configuration > Magenerds > SystemDiff > Connection > Remote System URL```
+
+The module must be enabled in the system configuration to compare a remote configuration:
+
+```Stores > Configuration > Magenerds > SystemDiff > General > Enabled```
+
+To actually see the field differences between the instances in the system configuration, the display must be enabled:
+
+```Stores > Configuration > Magenerds > SystemDiff > Display > Store configuration diff```
+
 
 ## Backend Usage
-In the system configuration of the module you can find a `Run diff` button which triggers the sync to the remote system
+In the system configuration of the module 
+
+```Stores > Configuration > Magenerds > SystemDiff > Connection```
+
+is a `Run` button which triggers the sync between local and remote system
 and starts the diff.
  
 ## Command Line Usage
-There is a command available which currently outputs the differences of the data sets of both systems. You can use it
-like the following:
+The diff can be initiated via CLI command:
 
 `bin/magento system-diff:execute`
 
