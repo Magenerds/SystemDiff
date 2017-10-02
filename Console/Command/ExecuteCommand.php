@@ -27,6 +27,11 @@ class ExecuteCommand extends Command
     const COMMAND_DESCRIPTION = 'system-diff:execute';
 
     /**
+     * Exit code when exception occurred
+     */
+    const EXIT_CODE_EXCEPTION = 4;
+
+    /**
      * @var PerformSystemDiffService
      */
     private $performSystemDiffService;
@@ -56,14 +61,20 @@ class ExecuteCommand extends Command
     /**
      * @param InputInterface $input An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @return int 0 if everything went fine, or an error code
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
+        $exitStatus = 0;
         try {
+            $output->write('Performing sync and diff...');
             $this->performSystemDiffService->performDiff();
+            $output->writeln(' Done.');
         } catch (\Exception $e) {
+            $exitStatus = self::EXIT_CODE_EXCEPTION;
             $output->writeln(sprintf('An error occurred during diff: %s', $e->getMessage()));
         }
+
+        return $exitStatus;
     }
 }
