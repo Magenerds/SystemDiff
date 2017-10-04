@@ -39,6 +39,8 @@ class SoapClient extends AbstractClient implements ClientInterface
             return $this->configDataFactory->create(['data' => $this->buildDataFromJson($response->result->data->string)]);
         }
 
+        // error
+        $this->logger->error($httpClient->getLastResponse());
         throw new \Exception("SOAP response could not be read");
     }
 }

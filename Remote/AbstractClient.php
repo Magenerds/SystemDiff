@@ -11,6 +11,7 @@ namespace Magenerds\SystemDiff\Remote;
 
 use Magenerds\SystemDiff\Helper\Config;
 use Magenerds\SystemDiff\Api\Data\ConfigDataInterfaceFactory;
+use Psr\Log\LoggerInterface;
 
 class AbstractClient
 {
@@ -25,17 +26,25 @@ class AbstractClient
     protected $configDataFactory;
 
     /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
      * Client constructor.
      *
      * @param Config $configHelper
      * @param ConfigDataInterfaceFactory $configDataFactory
+     * @param LoggerInterface $logger
      */
     public function __construct(
         Config $configHelper,
-        ConfigDataInterfaceFactory $configDataFactory
+        ConfigDataInterfaceFactory $configDataFactory,
+        LoggerInterface $logger
     ) {
         $this->helper = $configHelper;
         $this->configDataFactory = $configDataFactory;
+        $this->logger = $logger;
     }
 
     /**
