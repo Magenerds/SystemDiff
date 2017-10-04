@@ -9,10 +9,10 @@
 
 namespace Magenerds\SystemDiff\Helper;
 
+use Magento\Framework\App\Config\MutableScopeConfigInterface;
 use DateTimeInterface;
 use Magenerds\SystemDiff\Model\DiffConfig;
 use Magenerds\SystemDiff\Model\ResourceModel\DiffConfig as DiffConfigResource;
-use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magenerds\SystemDiff\Model\ResourceModel\DiffConfig\CollectionFactory;
 use Magenerds\SystemDiff\Model\DiffConfigFactory;
 use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
@@ -37,7 +37,7 @@ class Config
     const XML_PATH_LAST_SYNC_DATETIME = 'system_diff/general/last_sync_datetime';
 
     /**
-     * @var ScopeConfigInterface
+     * @var MutableScopeConfigInterface
      */
     private $scopeConfig;
 
@@ -64,14 +64,14 @@ class Config
     /**
      * Config constructor.
      *
-     * @param ScopeConfigInterface $scopeConfig
-     * @param CollectionFactory    $collectionFactory
-     * @param DiffConfigFactory    $diffConfigFactory
-     * @param TimezoneInterface    $timezone
-     * @param DateTime             $dateTime
+     * @param MutableScopeConfigInterface $scopeConfig
+     * @param CollectionFactory           $collectionFactory
+     * @param DiffConfigFactory           $diffConfigFactory
+     * @param TimezoneInterface           $timezone
+     * @param DateTime                    $dateTime
      */
     public function __construct(
-        ScopeConfigInterface $scopeConfig,
+        MutableScopeConfigInterface $scopeConfig,
         CollectionFactory $collectionFactory,
         DiffConfigFactory $diffConfigFactory,
         TimezoneInterface $timezone,
@@ -80,8 +80,8 @@ class Config
         $this->scopeConfig = $scopeConfig;
         $this->diffConfigCollectionFactory = $collectionFactory;
         $this->diffConfigFactory = $diffConfigFactory;
-        $this->dateTime = $dateTime;
         $this->timezone = $timezone;
+        $this->dateTime = $dateTime;
     }
 
     /**
@@ -135,7 +135,6 @@ class Config
     {
         $dateTime = $this->getLastSyncDatetime();
         if ($dateTime instanceof DateTimeInterface) {
-
             return $this->timezone->formatDateTime($dateTime, \IntlDateFormatter::SHORT, true);
         }
 
