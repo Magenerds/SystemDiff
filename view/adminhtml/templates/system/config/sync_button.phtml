@@ -41,7 +41,7 @@ require(
             }
         }
 
-        Event.observe(window, 'load', function(){
+        jQuery(document).ready(function(){
             enableSyncButton();
         });
 
@@ -67,4 +67,4 @@ require(
 </script>
 
 <?php echo $block->getButtonHtml() ?>
-<span id="<?php echo $block->getElement()->getHtmlId() ?>_info" class="magenerds_sync_info"></span>
+<span id="<?php echo $block->getElement()->getHtmlId() ?>_info" class="magenerds_sync_info"><?php echo $block->getLastSyncInfo(); ?></span>

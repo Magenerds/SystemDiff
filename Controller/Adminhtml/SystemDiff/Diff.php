@@ -9,11 +9,11 @@
 
 namespace Magenerds\SystemDiff\Controller\Adminhtml\SystemDiff;
 
+use Magenerds\SystemDiff\Helper\Config;
 use Magenerds\SystemDiff\Service\PerformSystemDiffService;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Magento\Framework\Stdlib\DateTime\TimezoneInterface;
 
 class Diff extends Action
 {
@@ -33,28 +33,28 @@ class Diff extends Action
     private $performSystemDiffService;
 
     /**
-     * @var TimezoneInterface
+     * @var Config
      */
-    private $timezone;
+    private $configHelper;
 
     /**
      * Diff action constructor.
      *
-     * @param Context $context
-     * @param JsonFactory $jsonFactory
+     * @param Context                  $context
+     * @param JsonFactory              $jsonFactory
      * @param PerformSystemDiffService $performSystemDiffService
-     * @param TimezoneInterface $timezone
+     * @param Config                   $configHelper
      */
     public function __construct(
         Context $context,
         JsonFactory $jsonFactory,
         PerformSystemDiffService $performSystemDiffService,
-        TimezoneInterface $timezone
+        Config $configHelper
     ) {
         $this->context = $context;
         $this->jsonFactory = $jsonFactory;
         $this->performSystemDiffService = $performSystemDiffService;
-        $this->timezone = $timezone;
+        $this->configHelper = $configHelper;
 
         parent::__construct($context);
     }
@@ -82,7 +82,8 @@ class Diff extends Action
             [
                 'message' => sprintf(
                     __($message),
-                    $this->timezone->formatDateTime(null, \IntlDateFormatter::SHORT, true))
+                    $this->configHelper->getLastSyncDatetimeFormatted()
+                ),
             ]
         );
 
