@@ -36,6 +36,8 @@ class RestClient extends AbstractClient implements ClientInterface
             throw new \Exception("REST response could not be read");
         }
 
+        // From here error state -> exception.
+        $this->logger->error($response->getBody());
         throw new \Exception("Request to remote was not successfull");
     }
 }
