@@ -1,0 +1,70 @@
+<?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
+?>
+<?php /* @var $block \Magenerds\SystemDiff\Block\System\Config\Form\SyncButton */ ?>
+<script>
+require(
+    ['jquery', 'prototype'],
+    function(jQuery){
+
+        var buttonId = '<?php echo $block->getElement()->getHtmlId() ?>';
+        var buttonSelector = '#'+buttonId;
+        var infoSelector = buttonSelector+'_info';
+
+        var $info = jQuery(infoSelector);
+        var $button = jQuery(buttonSelector);
+
+        function enableSyncButton() {
+            Form.Element.enable(buttonId);
+            $button.removeClass('disabled');
+        }
+
+        function disableSyncButton() {
+            Form.Element.disable(buttonId);
+            $button.addClass('disabled');
+        }
+
+        function message(message, type) {
+            $info.html(message);
+            $info.addClass('message');
+
+            if (type === "error") {
+                $info.addClass('message-error');
+            } else {
+                $info.removeClass('message-error');
+            }
+        }
+
+        jQuery(document).ready(function(){
+            enableSyncButton();
+        });
+
+        jQuery(buttonSelector).click(
+            function () {
+                disableSyncButton();
+                message('<?php echo __("Performing sync and diff...") ?>');
+                jQuery.get(
+                    '<?php echo /* @escapeNotVerified */ $block->getAjaxUrl() ?>'
+                ).done(function (data) {
+                    message(data.message);
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    message(errorThrown, "error");
+
+                }).always(function(){
+                    enableSyncButton();
+                })
+                ;
+            }
+        );
+    }
+);
+</script>
+
+<?php echo $block->getButtonHtml() ?>
+<span id="<?php echo $block->getElement()->getHtmlId() ?>_info" class="magenerds_sync_info"><?php echo $block->getLastSyncInfo(); ?></span>

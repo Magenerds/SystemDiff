@@ -14,9 +14,9 @@ interface DifferInterface
     /**
      * Diffs two data sets of two systems.
      *
-     * @param array $localData
-     * @param array $remoteData
-     * @return array
+     * @param [] $localData
+     * @param [] $remoteData
+     * @return []
      */
     public function diff(array $localData, array $remoteData);
 }

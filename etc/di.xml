@@ -10,21 +10,33 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
 
+    <preference for="Magenerds\SystemDiff\Remote\ClientInterface"
+                type="Magenerds\SystemDiff\Remote\ClientAdapter" />
+
     <preference for="Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\FetchRemoteDataService" />
 
     <preference for="Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\FetchLocalDataService" />
 
-    <preference for="Magenerds\SystemDiff\Remote\ClientInterface"
-                type="\Magenerds\SystemDiff\Remote\Client" />
-
     <preference for="Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface"
                 type="Magenerds\SystemDiff\Service\DiffDataService" />
 
+    <preference for="Magenerds\SystemDiff\Api\Service\PerformSystemDiffServiceInterface"
+                type="Magenerds\SystemDiff\Service\PerformSystemDiffService" />
+
+    <preference for="Magenerds\SystemDiff\Api\Service\SaveDiffToTableServiceInterface"
+                type="Magenerds\SystemDiff\Service\SaveDiffToTableService" />
+
+    <preference for="Magenerds\SystemDiff\Api\Data\ConfigDataInterface"
+                type="Magenerds\SystemDiff\Model\ConfigData" />
+
+    <preference for="Magento\Config\Block\System\Config\Form\Field"
+                type="Magenerds\SystemDiff\Block\System\Config\Form\Field" />
+
     <type name="Magenerds\SystemDiff\Differ\DifferPool">
         <arguments>
-            <argument name="differ" xsi:type="array">
+            <argument name="differs" xsi:type="array">
                 <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\Differ\StoreConfigDiffer</item>
             </argument>
         </arguments>
@@ -32,9 +44,16 @@
 
     <type name="Magenerds\SystemDiff\DataReader\DataReaderPool">
         <arguments>
-            <argument name="reader" xsi:type="array">
+            <argument name="dataReaders" xsi:type="array">
                 <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\DataReader\StoreConfigDataReader</item>
-                <item name="cms" xsi:type="string">Magenerds\SystemDiff\DataReader\CmsDataReader</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magenerds\SystemDiff\DataWriter\DataWriterPool">
+        <arguments>
+            <argument name="dataWriters" xsi:type="array">
+                <item name="storeConfig" xsi:type="string">Magenerds\SystemDiff\DataWriter\StoreConfigDataWriter</item>
             </argument>
         </arguments>
     </type>
@@ -44,6 +63,31 @@
             <argument name="commands" xsi:type="array">
                 <item name="configDiffExecuteCommand" xsi:type="object">Magenerds\SystemDiff\Console\Command\ExecuteCommand</item>
             </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="configShowSourceAggregated" type="Magento\Framework\App\Config\ConfigSourceAggregated">
+        <arguments>
+            <argument name="sources" xsi:type="array">
+                <item name="dynamic" xsi:type="array">
+                    <item name="source" xsi:type="object">Magento\Config\App\Config\Source\RuntimeConfigSource</item>
+                    <item name="sortOrder" xsi:type="string">100</item>
+                </item>
+                <item name="initial" xsi:type="array">
+                    <item name="source" xsi:type="object">systemConfigInitialDataProvider</item>
+                    <item name="sortOrder" xsi:type="string">1000</item>
+                </item>
+                <item name="envVariable" xsi:type="array">
+                    <item name="source" xsi:type="object">Magento\Config\App\Config\Source\EnvironmentConfigSource</item>
+                    <item name="sortOrder" xsi:type="string">2000</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magenerds\SystemDiff\DataReader\StoreConfigDataReader">
+        <arguments>
+            <argument name="configSource" xsi:type="object">configShowSourceAggregated</argument>
         </arguments>
     </type>
 </config>

@@ -30,9 +30,9 @@ class DiffDataService implements DiffDataServiceInterface
     }
 
     /**
-     * @param array $localData
-     * @param array $remoteData
-     * @return array
+     * @param [] $localData
+     * @param [] $remoteData
+     * @return []
      */
     public function diffData(array $localData, array $remoteData)
     {
@@ -40,7 +40,7 @@ class DiffDataService implements DiffDataServiceInterface
 
         foreach ($this->differPool as $differCode => $differ) {
             /** @var DifferInterface $differ */
-            $differences[$differCode] = $differ->diff($localData, $remoteData);
+            $differences[$differCode] = $differ->diff((array)$localData, (array)$remoteData);
         }
 
         return $differences;

@@ -7,9 +7,13 @@
  * http://opensource.org/licenses/osl-3.0.php
  */
 
-namespace Magenerds\SystemDiff\Remote;
+namespace Magenerds\SystemDiff\DataWriter;
 
-class Client implements ClientInterface
+interface DataWriterInterface
 {
-
+    /**
+     * @param [] $diffData
+     * @return void
+     */
+    public function write(array $diffData);
 }

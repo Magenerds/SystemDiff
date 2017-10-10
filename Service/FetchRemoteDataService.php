@@ -9,6 +9,7 @@
 
 namespace Magenerds\SystemDiff\Service;
 
+use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
 use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
 use Magenerds\SystemDiff\Remote\ClientInterface;
 
@@ -20,18 +21,19 @@ class FetchRemoteDataService implements FetchRemoteDataServiceInterface
     private $client;
 
     /**
-     * @param ClientInterface $client
+     * @param ClientInterface $clientAdapter
      */
-    public function __construct(ClientInterface $client)
+    public function __construct(ClientInterface $clientAdapter)
     {
-        $this->client = $client;
+
+        $this->client = $clientAdapter;
     }
 
     /**
-     * @return array
+     * @return ConfigDataInterface
      */
     public function fetch()
     {
-        return [];
+        return $this->client->fetch();
     }
 }

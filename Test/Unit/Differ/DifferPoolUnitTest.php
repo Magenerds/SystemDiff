@@ -14,7 +14,7 @@ use Magenerds\SystemDiff\Differ\DifferPool;
 use Magento\Framework\ObjectManager\TMap;
 use Magento\Framework\ObjectManager\TMapFactory;
 
-class DifferPoolUnitTest extends \PHPUnit_Framework_TestCase
+class DifferPoolUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DifferPool

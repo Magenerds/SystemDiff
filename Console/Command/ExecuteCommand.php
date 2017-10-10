@@ -9,94 +9,127 @@
 
 namespace Magenerds\SystemDiff\Console\Command;
 
-use Magenerds\SystemDiff\Api\Service\DiffDataServiceInterface;
-use Magenerds\SystemDiff\Api\Service\FetchLocalDataServiceInterface;
-use Magenerds\SystemDiff\Api\Service\FetchRemoteDataServiceInterface;
+use Magenerds\SystemDiff\Helper\Config;
+use Magento\Framework\App\Config\MutableScopeConfigInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Magenerds\SystemDiff\Service\PerformSystemDiffService;
 
 class ExecuteCommand extends Command
 {
     /**
-     * Dry run argument
+     * Holds the command name
      */
-    const DRY_RUN = 'dry-run';
+    const COMMAND_NAME = 'system-diff:execute';
 
     /**
-     * Name argument
+     * Holds the command description
      */
-    const NAME_ARGUMENT = 'name';
+    const COMMAND_DESCRIPTION = 'system-diff:execute';
 
     /**
-     * @var FetchLocalDataServiceInterface
+     * Exit code when exception occurred
      */
-    private $fetchLocalDataService;
+    const EXIT_CODE_EXCEPTION = 4;
 
     /**
-     * @var FetchRemoteDataServiceInterface
+     * Command options
      */
-    private $fetchRemoteDataService;
+    const OPTION_REMOTE_SYSTEM_URL = 'remote-system-url';
+    const OPTION_API_TYPE = 'api-type';
+    const OPTION_ACCESS_TOKEN = 'access-token';
 
     /**
-     * @var DiffDataServiceInterface
+     * @var PerformSystemDiffService
      */
-    private $diffDataService;
+    private $performSystemDiffService;
 
     /**
-     * FetchDataCommand constructor.
+     * @var Config
+     */
+    private $configHelper;
+
+    /**
+     * @var MutableScopeConfigInterface
+     */
+    private $scopeConfig;
+
+    /**
+     * ExecuteCommand constructor.
      *
-     * @param FetchLocalDataServiceInterface $fetchLocalDataService
-     * @param FetchRemoteDataServiceInterface $fetchRemoteDataService
-     * @param DiffDataServiceInterface $diffDataService
+     * @param PerformSystemDiffService    $performSystemDiffService
+     * @param MutableScopeConfigInterface $scopeConfig
+     * @param Config                      $configHelper
      */
     public function __construct(
-        FetchLocalDataServiceInterface $fetchLocalDataService,
-        FetchRemoteDataServiceInterface $fetchRemoteDataService,
-        DiffDataServiceInterface $diffDataService
+        PerformSystemDiffService $performSystemDiffService,
+        MutableScopeConfigInterface $scopeConfig,
+        Config $configHelper
     ) {
-        parent::__construct();
+        parent::__construct(self::COMMAND_NAME);
 
-        $this->fetchLocalDataService = $fetchLocalDataService;
-        $this->fetchRemoteDataService = $fetchRemoteDataService;
-        $this->diffDataService = $diffDataService;
+        $this->performSystemDiffService = $performSystemDiffService;
+        $this->scopeConfig = $scopeConfig;
+        $this->configHelper = $configHelper;
     }
 
     /**
      * Configures the current command.
+     *
+     * @return void
      */
     public function configure()
     {
-        $this->setName('system-diff:execute');
-        $this->setDescription('system-diff:execute');
-        $this->setDefinition([
-            new InputOption(
-                self::DRY_RUN,
-                '--dry-run',
-                InputOption::VALUE_NONE,
-                'Dry run'
-            )
-        ]);
+        $this->setName(self::COMMAND_NAME);
+        $this->setDescription(self::COMMAND_DESCRIPTION);
+
+        $this->addOption(self::OPTION_API_TYPE, 'a', InputOption::VALUE_OPTIONAL, 'Overwrite configured api type');
+        $this->addOption(self::OPTION_REMOTE_SYSTEM_URL, 'u', InputOption::VALUE_OPTIONAL,
+            'Overwrite configured remote url');
+        $this->addOption(self::OPTION_ACCESS_TOKEN, 't', InputOption::VALUE_OPTIONAL,
+            'Overwrite configured access token');
 
         parent::configure();
     }
 
     /**
-     * @param InputInterface $input An InputInterface instance
+     * Perform system diff via service.
+     *
+     * @param InputInterface  $input  An InputInterface instance
      * @param OutputInterface $output An OutputInterface instance
-     * @return null|int null or 0 if everything went fine, or an error code
+     *
+     * @return int 0 if everything went fine, or an error code
      */
     public function execute(InputInterface $input, OutputInterface $output)
     {
-        $remoteData = $this->fetchRemoteDataService->fetch();
-        $localData = $this->fetchLocalDataService->fetch();
+        $exitStatus = 0;
 
-        $difference = $this->diffDataService->diffData($remoteData, $localData);
-
-        if ($input->getOption(self::DRY_RUN)) {
-            $output->writeln(var_export($difference, true));
+        if ($url = $input->getOption(self::OPTION_REMOTE_SYSTEM_URL)) {
+            $this->scopeConfig->setValue(Config::XML_PATH_REMOTE_SYSTEM_URL, $url);
         }
+        if ($api = $input->getOption(self::OPTION_API_TYPE)) {
+            $this->scopeConfig->setValue(Config::XML_PATH_API_TYPE, $api);
+        }
+        if ($token = $input->getOption(self::OPTION_ACCESS_TOKEN)) {
+            $this->scopeConfig->setValue(Config::XML_PATH_ACCESS_TOKEN, $token);
+        }
+
+        try {
+            $output->write('Performing sync and diff...');
+            $this->performSystemDiffService->performDiff();
+            $output->writeln(
+                sprintf(
+                    'Done at %s.',
+                    $this->configHelper->getLastSyncDatetimeFormatted()
+                )
+            );
+        } catch (\Exception $e) {
+            $exitStatus = self::EXIT_CODE_EXCEPTION;
+            $output->writeln(sprintf('An error occurred during diff: %s', $e->getMessage()));
+        }
+
+        return $exitStatus;
     }
 }

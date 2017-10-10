@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <system_diff>
+            <display>
+                <store_config>1</store_config>
+            </display>
+            <connection>
+                <api_type>Magenerds\SystemDiff\Remote\SoapClient</api_type>
+            </connection>
+        </system_diff>
+        <system>
+            <magenerds>
+                <system_diff>
+                    <api_types>
+                        <REST>Magenerds\SystemDiff\Remote\RestClient</REST>
+                        <SOAP>Magenerds\SystemDiff\Remote\SoapClient</SOAP>
+                    </api_types>
+                </system_diff>
+            </magenerds>
+        </system>
+    </default>
+</config>

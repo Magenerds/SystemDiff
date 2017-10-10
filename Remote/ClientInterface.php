@@ -9,7 +9,12 @@
 
 namespace Magenerds\SystemDiff\Remote;
 
+use Magenerds\SystemDiff\Api\Data\ConfigDataInterface;
+
 interface ClientInterface
 {
-
+    /**
+     * @return ConfigDataInterface
+     */
+    public function fetch();
 }

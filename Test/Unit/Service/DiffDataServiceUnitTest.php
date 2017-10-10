@@ -1,4 +1,11 @@
 <?php
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
 
 namespace Magenerds\SystemDiff\Test\Unit\Service;
 
@@ -6,7 +13,7 @@ use Magenerds\SystemDiff\Differ\DifferInterface;
 use Magenerds\SystemDiff\Differ\DifferPool;
 use Magenerds\SystemDiff\Service\DiffDataService;
 
-class DiffDataServiceUnitTest extends \PHPUnit_Framework_TestCase
+class DiffDataServiceUnitTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var DifferPool|\PHPUnit_Framework_MockObject_MockObject

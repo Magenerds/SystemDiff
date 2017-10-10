@@ -1,0 +1,35 @@
+/**
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Open Software License (OSL 3.0)
+ * that is available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/osl-3.0.php
+ */
+.accordion .config td.label, .accordion .config colgroup.label {
+    width: 20%;
+}
+
+.accordion .config td.value, .accordion .config colgroup.value {
+    width: 35%;
+    vertical-align: unset;
+}
+
+.accordion .config td.sync, .accordion .config colgroup.sync {
+    width: 10%;
+}
+
+.action-sync:before {
+    font-family: 'Admin Icons';
+    font-weight: 700;
+    content: '\e629';
+}
+
+.diff-hidden {
+    display: none;
+}
+
+.message.magenerds_sync_info {
+    display: block;
+    float: none;
+    margin: .5em 0;
+}
